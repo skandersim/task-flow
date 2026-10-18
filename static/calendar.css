@@ -1,0 +1,603 @@
+.calendar-page {
+    margin-left: 246px;
+    width: calc(100% - 246px);
+    padding: 40px 32px;
+    min-height: calc(100vh - 72px);
+    box-sizing: border-box;
+}
+
+/*  шапка  */
+.calendar-header .header-top {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.calendar-header .header-top svg,
+.calendar-header .header-top i {
+    width: 32px;
+    height: 32px;
+    color: var(--accent-color);
+}
+
+.calendar-header h1 {
+    margin: 0;
+    font-size: 28px;
+    font-weight: 700;
+    color: var(--text-main);
+}
+
+.calendar-header p {
+    margin: 6px 0 0 44px;
+    color: var(--text-sub);
+    font-size: 15px;
+}
+
+/*  основной контент  */
+.calendar-body {
+    display: flex;
+    gap: 24px;
+    margin-top: 32px;
+    align-items: flex-start;
+}
+
+/* большой календарь */
+.calendar-main {
+    flex: 1;
+    min-width: 0;
+    min-height: 720px;
+    background-color: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: 18px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.calendar-board {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    min-height: 720px;
+}
+
+.calendar-board-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 24px;
+    flex-shrink: 0;
+}
+
+.calendar-board-header-nav {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+
+.calendar-board-header-nav h3 {
+    margin: 0;
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--text-main);
+    min-width: 160px;
+    text-align: center;
+}
+
+.header-nav-btn {
+    width: 40px;
+    height: 40px;
+    padding: 0;
+    background-color: transparent;
+    color: var(--text-main);
+    border: 1px solid var(--border-color);
+    border-radius: 10px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.2s, border-color 0.2s;
+}
+
+.header-nav-btn:hover {
+    background-color: var(--accent-hover); 
+    border-color: var(--accent-hover);    
+    color: #ffffff;
+}
+
+.calendar-board-header-views {
+    display: flex;
+    gap: 10px;
+}
+
+.calendar-board-header-views button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    height: 40px;
+    padding: 0 16px;
+    background-color: transparent;
+    border: 1px solid var(--border-color);
+    border-radius: 10px;
+    color: var(--text-main);
+    cursor: pointer;
+    transition: background 0.2s, border-color 0.2s;
+}
+
+.calendar-board-header-views button h4 {
+    margin: 0;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.calendar-board-header-views button:hover,
+.calendar-board-header-views button.active {
+    background-color: var(--accent-color); 
+    border-color: var(--accent-color);     
+    color: #ffffff !important;
+}
+
+/* дни недели большой доски */
+.calendar-weekdays {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    border-top: 1px solid var(--border-color);
+    border-bottom: 1px solid var(--border-color);
+    flex-shrink: 0;
+}
+
+.calendar-weekdays .weekday {
+    text-align: center;
+    color: var(--text-sub);
+    font-size: 13px;
+    font-weight: 600;
+    padding: 12px 0;
+}
+
+/* сетка дат большой доски */
+.calendar-grid {
+    flex: 1;
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    grid-template-rows: repeat(6, 1fr);
+    min-height: 560px;
+}
+
+.calendar-grid .day-cell {
+    border-right: 1px solid var(--border-color);
+    border-bottom: 1px solid var(--border-color);
+    padding: 8px;
+    min-height: 90px;
+    box-sizing: border-box;
+}
+
+.calendar-grid .day-cell:nth-child(7n) {
+    border-right: none;
+}
+
+/* блок справа */
+.calendar-sidebar {
+    width: 320px;
+    flex-shrink: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.mini-calendar,
+.upcoming-events {
+    background-color: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: 18px;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+/* маленький календарь */
+.mini-calendar {
+    min-height: 340px;
+    display: flex;
+    flex-direction: column;
+}
+
+.mini-calendar-grid {
+    flex: 1;
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    grid-template-rows: repeat(6, 1fr);
+    gap: 4px;
+    min-height: 220px;
+}
+
+/* ячейки маленького календаря */
+.mini-calendar-grid .day-cell {
+    aspect-ratio: 1;
+    max-height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+    font-size: 13px;
+    color: var(--text-main);
+} 
+
+.mini-calendar-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+}
+
+.mini-calendar-header h3 {
+    margin: 0;
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--text-main);
+}
+
+.mini-nav-btn {
+    width: 32px;
+    height: 32px;
+    padding: 0;
+    background: transparent;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    color: var(--text-sub);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background 0.2s, color 0.2s;
+}
+
+.mini-nav-btn:hover {
+    background-color: var(--border-color);
+    color: var(--text-main);
+}
+
+.mini-calendar-weekdays {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    margin-bottom: 8px;
+}
+
+.mini-calendar-weekdays .weekday {
+    text-align: center;
+    color: var(--text-sub);
+    font-size: 12px;
+    font-weight: 600;
+    padding: 4px 0;
+}
+
+.mini-calendar-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 2px;
+}
+
+.mini-calendar-grid .day-cell:hover {
+    background: var(--border-color);
+}
+
+/* ближайщие событие */
+.upcoming-events {
+    height: 352px;
+    display: flex;
+    flex-direction: column;
+}
+
+.upcoming-events-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+    flex-shrink: 0;
+}
+
+.upcoming-title {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.upcoming-title i,
+.upcoming-title svg {
+    color: var(--accent-color); 
+    width: 18px;
+    height: 18px;
+}
+
+.upcoming-title h3 {
+    margin: 0;
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--text-main);
+}
+
+.events-all-link {
+    display: flex;
+    align-items: center;
+    gap: 2px;
+    color: var(--accent-color); 
+    font-size: 13px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: color 0.2s;
+}
+
+.events-all-link:hover {
+    color: var(--accent-hover); 
+}
+
+.events-all-link svg,
+.events-all-link i {
+    width: 14px;
+    height: 14px;
+}
+
+.upcoming-list {
+    flex: 1;
+    overflow-y: auto;
+} 
+
+/* числа в клетках */
+.day-number {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text-main);
+}
+
+/* дни не текущего месяца серые */
+.calendar-grid .day-cell.other-month .day-number,
+.mini-calendar-grid .day-cell.other-month .day-number {
+    color: var(--text-sub);
+    opacity: 0.6;
+}
+
+/* сегодня - акцентная подсветка */
+.calendar-grid .day-cell.today .day-number {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 28px;
+    height: 28px;
+    padding: 0 6px;
+    border-radius: 8px;
+    background: var(--accent-color);
+    color: #ffffff;
+}
+
+.mini-calendar-grid .day-cell.today .day-number {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: var(--accent-color);
+    color: #ffffff;
+}
+
+/* big: число в левом верхнем углу клетки */
+.calendar-grid .day-cell {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+/* mini: число по центру */
+.mini-calendar-grid .day-number {
+    font-size: 13px;
+}
+
+.cell-events {
+    width: 100%;
+    margin-top: 6px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.event-chip {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    width: 100%;
+    padding: 5px 7px;
+    border-radius: 8px;
+    box-sizing: border-box;
+    font-size: 11px;
+    line-height: 1.2;
+    border: 1px solid transparent;
+}
+
+.chip-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    flex-shrink: 0;
+}
+
+.event-title {
+    flex: 1;
+    min-width: 0;
+    color: var(--text-main);
+    font-weight: 500;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.event-time {
+    flex-shrink: 0;
+    font-size: 10px;
+    opacity: 0.9;
+}
+
+/* красный */
+.event-chip.prio-high {
+    background: rgba(239, 68, 68, 0.14);
+    border-color: rgba(239, 68, 68, 0.25);
+}
+.event-chip.prio-high .chip-dot,
+.event-chip.prio-high .event-time {
+    color: #f87171;
+    background-color: #ef4444;
+}
+.event-chip.prio-high .event-time {
+    background: transparent;
+    color: #fca5a5;
+}
+
+/* оранжевый (желтый) */
+.event-chip.prio-average {
+    background: rgba(245, 158, 11, 0.14);
+    border-color: rgba(245, 158, 11, 0.25);
+}
+.event-chip.prio-average .chip-dot {
+    background-color: #f59e0b;
+}
+.event-chip.prio-average .event-time {
+    color: #fcd34d;
+}
+
+/* зелёный */
+.event-chip.prio-low {
+    background: rgba(16, 185, 129, 0.14);
+    border-color: rgba(16, 185, 129, 0.25);
+}
+.event-chip.prio-low .chip-dot {
+    background-color: #10b981;
+}
+.event-chip.prio-low .event-time {
+    color: #6ee7b7;
+}
+
+.upcoming-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.upcoming-empty {
+    margin: 0;
+    color: var(--text-sub);
+    font-size: 13px;
+}
+
+.upcoming-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+}
+
+.upcoming-dot {
+    width: 8px;
+    height: 8px;
+    margin-top: 5px;
+    border-radius: 50%;
+    flex-shrink: 0;
+    background: var(--text-sub);
+}
+
+.upcoming-content {
+    min-width: 0;
+}
+
+.upcoming-item-title {
+    color: var(--text-main);
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 1.3;
+}
+
+.upcoming-item-date {
+    margin-top: 3px;
+    color: var(--text-sub);
+    font-size: 12px;
+}
+
+/* цвета точек по приоритету */
+.upcoming-item.prio-high .upcoming-dot { background: #ef4444; }
+.upcoming-item.prio-average .upcoming-dot { background: #f59e0b; }
+.upcoming-item.prio-low .upcoming-dot { background: #10b981; }
+
+/* неделя - 1 ряд на всю высоту */
+.calendar-grid.is-week {
+    grid-template-rows: 1fr !important;
+}
+
+.calendar-grid.is-week .day-cell {
+    height: 100% !important;
+    min-height: 420px;
+}
+
+.sidebar-widget {
+    background-color: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: 18px;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.quote-widget {
+    text-align: center;
+    height: 350px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+    box-sizing: border-box;
+}
+
+.quote-icon {
+    width: 50px;
+    height: 50px;
+    color: var(--accent-color);
+    margin-bottom: 16px;
+    filter: drop-shadow(0 0 14px var(--accent-glow));
+}
+
+.quote-widget h4 {
+    margin: 0 0 8px;
+    color: var(--text-main);
+    font-size: 18px;
+    font-weight: 500;
+    line-height: 1.4;
+    max-width: 240px;
+}
+
+.quote-widget p {
+    margin: 0;
+    color: var(--text-sub);
+    font-size: 14px;
+}
+
+.animated-line {
+    width: 80%;
+    height: 2px;
+    background: rgba(255, 255, 255, 0.05);
+    margin-top: 24px;
+    position: relative;
+    overflow: hidden;
+    border-radius: 2px;
+}
+
+.animated-line::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -50%;
+    width: 50%;
+    height: 100%;
+    background: linear-gradient(to right, transparent, var(--accent-color), transparent);
+    animation: loadingLine 2s infinite ease-in-out;
+}
+
+@keyframes loadingLine {
+    0% { left: -50%; }
+    100% { left: 100%; }
+}

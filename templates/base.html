@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}TaskFlow{% endblock %}</title>
+    <link rel="icon" type="image/svg+xml" href="{{ url_for('static', filename='favicon.svg') }}">
+    <!-- базовые стили -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- дополнительные стили конкретной страницы -->
+    {% block extra_css %}{% endblock %}
+
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body class="landing-page">
+
+    <!-- шапка -->
+    <header class="navbar">
+        <a href="{% if session.get('user_id') %}/main{% else %}/{% endif %}" class="logo">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="9 11 12 14 22 4"></polyline>
+                <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path>
+            </svg>
+            <h2>Task<span class="logo-highlight">Flow</span></h2>
+        </a>
+
+        <div class="nav-buttons">
+            <!-- блок с аватаром -->
+            {% if session.get('user_id') %}
+                <a href="/profile" class="nav-avatar-link" title="Профиль">
+                    <div class="nav-avatar">
+                        {% if user and user.avatar %}
+                            <img src="{{ user.avatar }}" alt="Аватар" class="nav-avatar-img">
+                        {% else %}
+                            <i data-lucide="user"></i>
+                        {% endif %}
+                    </div>
+                </a>
+                <a href="/logout" class="btn btn-outline">Выход</a>   
+            {% else %}
+                <a href="/register" class="btn btn-primary">Регистрация</a>
+                <a href="/entrance" class="btn btn-outline">Войти</a>
+            {% endif %}
+        </div>
+    </header>
+
+    <!-- здесь будет основной контент -->
+    <main>
+        {% block main_content %}{% endblock %}
+
+        {% if user %}
+            <div class="modal-overlay" id="logoutModal">
+                <div class="modal-window logout-modal">
+                    <button type="button" class="close-btn logout-close" aria-label="Закрыть">&times;</button>
+
+                    <h3 class="logout-title">Выход</h3>
+                    <p class="logout-text">Вы точно хотите выйти из аккаунта?</p>
+
+                    <div class="logout-buttons">
+                        <button type="button" class="cancel-logout">Отмена</button>
+                        <form method="POST" action="/logout" id="logoutForm" class="logout-form">
+                            <button type="submit" class="confirm-logout-btn">Выйти</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+    </main>
+
+    <script>lucide.createIcons();</script>
+    <script src="{{ url_for('static', filename='javaScript/common.js') }}"></script>
+
+    <!-- дополнительный JS конкретной страницы -->
+    {% block extra_js %}{% endblock %}
+</body>
+</html>

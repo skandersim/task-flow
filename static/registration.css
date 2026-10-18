@@ -1,0 +1,201 @@
+.auth-container {
+    flex: 1; /* растягиваем контейнер на всю доступную высоту */
+    display: flex; /* включаем флекс-бокс */
+    align-items: center; /* выравниваем содержимое по центру по вертикали */
+    justify-content: center; /* выравниваем содержимое по центру по горизонтали */
+    padding: 60px 20px; /* внутренние отступы сверху/снизу и по бокам */
+}
+
+.auth-card {
+    background-color: var(--bg-card); /* задаем темный цвет фона карточки */
+    border: 1px solid var(--border-color); /* добавляем тонкую золотистую рамку */
+    border-radius: 28px; /* скругляем углы карточки */
+    padding: 44px 40px; /* внутренние отступы со всех сторон */
+    width: 100%; /* занимаем всю доступную ширину */
+    max-width: 500px; /* ограничиваем максимальную ширину карточки */
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5); /* добавляем мягкую глубокую тень */
+}
+
+.auth-header {
+    text-align: center; /* выравниваем текст по центру */
+    margin-bottom: 32px; /* внешний отступ снизу */
+}
+
+.auth-header h1 {
+    font-size: 32px; /* задаем размер шрифта заглавного текста */
+    font-weight: 800; /* делаем шрифт очень жирным */
+    color: var(--text-main); /* устанавливаем белый цвет текста */
+    margin-bottom: 8px; /* внешний отступ снизу */
+}
+
+.auth-header p {
+    font-size: 14px; /* размер шрифта для описания */
+    color: var(--text-sub); /* приглушенный сероватый цвет текста */
+}
+
+.auth-form {
+    display: flex; /* включаем флекс */
+    flex-direction: column; /* располагаем элементы формы в колонку */
+    gap: 16px; /* расстояние между элементами формы */
+}
+
+.input-group {
+    position: relative; /* делаем позиционирование относительным для дочерних элементов */
+    display: flex; /* включаем флекс */
+    align-items: center; /* выравниваем элементы по центру по вертикали */
+}
+
+.input-icon {
+    position: absolute; /* абсолютное позиционирование внутри группы */
+    left: 16px; /* отступ слева */
+    color: var(--text-sub); /* цвет иконки */
+    display: flex; /* включаем флекс */
+    align-items: center; /* выравниваем по вертикали */
+    pointer-events: none; /* отключаем клики по иконке */
+}
+
+.input-action-icon {
+    position: absolute; /* абсолютное позиционирование */
+    right: 16px; /* отступ справа */
+    color: var(--text-sub); /* цвет иконки действия */
+    cursor: pointer; /* меняем курсор при наведении на указатель */
+    display: flex; /* включаем флекс */
+    align-items: center; /* выравниваем по вертикали */
+}
+
+.input-action-icon:hover {
+    color: var(--accent-color); /* меняем цвет иконки при наведении на золотистый */
+}
+
+.auth-form input {
+    width: 100%; /* занимаем всю доступную ширину */
+    background-color: var(--bg-input); /* цвет фона инпута */
+    border: 1px solid var(--border-color); /* тонкая полупрозрачная рамка */
+    border-radius: 12px; /* скругление углов поля */
+    padding: 14px 16px 14px 46px; /* внутренние отступы с запасом под иконку слева */
+    color: var(--text-main); /* белый цвет вводимого текста */
+    font-size: 15px; /* размер шрифта */
+    outline: none; /* убираем стандартную обводку браузера */
+    transition: all 0.2s ease; /* плавная анимация при изменениях */
+}
+
+.auth-form input:focus {
+    border-color: var(--accent-color); /* меняем цвет рамки при фокусе на золотистый */
+    box-shadow: 0 0 0 3px var(--accent-alpha); /* добавляем свечение при фокусе */
+}
+
+.auth-form input::placeholder {
+    color: var(--text-sub); /* цвет текста подсказки */
+}
+
+.btn-full {
+    width: 100%; /* растягиваем кнопку на всю ширину */
+    height: 52px; /* фиксированная высота кнопки */
+    font-size: 16px; /* размер шрифта */
+    margin-top: 8px; /* внешний отступ сверху */
+}
+
+.auth-divider {
+    text-align: center; /* выравниваем текст по центру */
+    color: var(--text-sub); /* приглушенный цвет разделителя */
+    margin: 20px 0; /* внешние отступы сверху и снизу */
+    font-size: 14px; /* размер шрифта */
+    position: relative; /* относительное позиционирование */
+}
+
+.auth-footer-text {
+    text-align: center; /* текст по центру */
+    margin-top: 24px; /* отступ сверху */
+    color: var(--text-sub); /* цвет текста */
+    font-size: 14px; /* размер шрифта */
+}
+
+.auth-footer-text a {
+    color: var(--accent-color); /* золотистый цвет ссылки */
+    text-decoration: none; /* убираем стандартное подчеркивание */
+    font-weight: 600; /* полужирное начертание */
+}
+
+.auth-footer-text a:hover {
+    text-decoration: underline; /* подчеркиваем ссылку при наведении */
+}
+
+/* стили для подписей над полями ввода */
+.field-block {
+    display: flex; /* включаем флекс */
+    flex-direction: column; /* располагаем все элементы в колонку */
+    gap: 6px; /* расстояние между элементами 6 пикселей */
+}
+
+.field-label {
+    font-size: 13px; /* размер шрифта подписи */
+    font-weight: 600; /* полужирный шрифт */
+    color: var(--text-sub); /* цвет текста подписи */
+    margin-left: 4px; /* небольшой отступ слева */
+    letter-spacing: 0.3px; /* межбуквенный интервал */
+}
+
+/* делаем блок оберткой с относительным позиционированием */
+.input-group {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+/* обязательно делаем отступ справа у инпута, чтобы текст не залазил на глазик */
+.auth-form input {
+    width: 100%;
+    padding: 14px 46px 14px 46px; /* 46px слева и справа под иконки */
+}
+
+/* настраиваем саму кнопку с глазиком, чтобы она прижалась к правому краю */
+.toggle-password {
+    position: absolute;
+    right: 14px;
+    background: none;
+    border: none;
+    color: var(--text-sub); /* полупрозрачный цвет иконки */
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    transition: color 0.2s ease;
+}
+
+.toggle-password:hover {
+    color: var(--accent-color); /* при наведении становится ярче */
+}
+
+.login-input-container {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    background-color: var(--bg-input);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    padding-left: 46px; 
+    padding-right: 16px;
+    transition: all 0.2s ease;
+}
+
+.login-input-container:focus-within {
+    border-color: var(--accent-color);
+    box-shadow: 0 0 0 3px var(--accent-alpha);
+}
+
+.fixed-at {
+    color: var(--text-main); 
+    user-select: none;
+    pointer-events: none;
+    margin-right: 2px;
+}
+
+.login-input-container input {
+    border: none !important;
+    outline: none !important;
+    background: transparent !important;
+    box-shadow: none !important;
+    padding: 14px 0 !important;
+    width: 100% !important;
+}

@@ -1,0 +1,176 @@
+{% extends 'base_app.html' %}
+
+{% block title %}Статистика | TaskFlow{% endblock %}
+
+{% block app_css %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='stats.css') }}">
+{% endblock %}
+
+{% block app_content %}
+    <div class="stats-page">
+        
+        <!-- заголовок -->
+        <div class="stats-header">
+            <div class="header-top">
+                <i data-lucide="bar-chart-2"></i>
+                <h1>Статистика</h1>
+            </div>
+            <p>Анализируйте свою продуктивность за всё время</p>
+        </div>
+
+        <div class="stats-body">
+            
+            <!-- главные kpi -->
+            <div class="kpi-grid">
+                <div class="kpi-card">
+                    <div class="kpi-info">
+                        <h3>Создано задач за всё время</h3>
+                        <h2 class="kpi-value">{{ total_tasks }}</h2> 
+                    </div>
+                    <div class="kpi-icon"><i data-lucide="folder-plus"></i></div>
+                </div>
+
+                <div class="kpi-card success">
+                    <div class="kpi-info">
+                        <h3>Выполнено</h3>
+                        <h2 class="kpi-value">{{ done_tasks }}</h2>
+                    </div>
+                    <div class="kpi-icon"><i data-lucide="check-circle"></i></div>
+                </div>
+
+                <div class="kpi-card warning">
+                    <div class="kpi-info">
+                        <h3>В работе</h3>
+                        <h2 class="kpi-value">{{ work_tasks }}</h2>
+                    </div>
+                    <div class="kpi-icon"><i data-lucide="clock"></i></div>
+                </div>
+
+                <div class="kpi-card danger">
+                    <div class="kpi-info">
+                        <h3>Просрочено</h3>
+                        <h2 class="kpi-value">{{ overdue_tasks }}</h2>
+                    </div>
+                    <div class="kpi-icon"><i data-lucide="alert-triangle"></i></div>
+                </div>
+            </div>
+
+            <!-- нижняя часть, две колонки -->
+            <div class="stats-details">
+                <!-- категории и приоритеты -->
+                <div class="stats-left">                    
+                    <!-- категории -->
+                    <div class="stats-card">
+                        <div class="card-header">
+                            <i data-lucide="layout-grid"></i>
+                            <h3>По направлениям</h3>
+                        </div>
+                        <div class="categories-list">
+                            <!-- категория 1 -->
+                            <div class="category-item cat-study">
+                                <div class="cat-info">
+                                    <span>Учёба и саморазвитие</span>
+                                    <span class="cat-count">{{ study_hobbies }} задач</span>
+                                </div>
+                                <div class="progress-bar-bg">
+                                    <div class="progress-bar-fill" data-percent="{{ study_percent }}" style="width: 0%;"></div>
+                                </div>
+                            </div>
+                            
+                            <!-- категория 2 -->
+                            <div class="category-item cat-work">
+                                <div class="cat-info">
+                                    <span>Работа и проекты</span>
+                                    <span class="cat-count">{{ work_hobbies }} задач</span>
+                                </div>
+                                <div class="progress-bar-bg">
+                                    <div class="progress-bar-fill" data-percent="{{ work_percent }}" style="width: 0%;"></div>
+                                </div>
+                            </div>
+
+                            <!-- категория 3 -->
+                            <div class="category-item cat-sport">
+                                <div class="cat-info">
+                                    <span>Спорт и здоровье</span>
+                                    <span class="cat-count">{{ sport_hobbies }} задач</span>
+                                </div>
+                                <div class="progress-bar-bg">
+                                    <div class="progress-bar-fill" data-percent="{{ sport_percent }}" style="width: 0%;"></div>
+                                </div>
+                            </div>
+
+                            <!-- категория 4 -->
+                            <div class="category-item cat-lifestyle">
+                                <div class="cat-info">
+                                    <span>Повседневные дела</span>
+                                    <span class="cat-count">{{ lifestyle_hobbies }} задач</span>
+                                </div>
+                                <div class="progress-bar-bg">
+                                    <div class="progress-bar-fill" data-percent="{{ lifestyle_percent }}" style="width: 0%;"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- блок приоритеты -->
+                    <div class="stats-card">
+                        <div class="card-header">
+                            <i data-lucide="flag"></i>
+                            <h3>По приоритетам</h3>
+                        </div>
+                        <div class="priorities-grid">
+                            <div class="prio-box prio-high">
+                                <div class="prio-dot"></div>
+                                <span class="prio-name">Высокий</span>
+                                <h3 class="prio-num">{{ high_priority }}</h3>
+                            </div>
+                            <div class="prio-box prio-average">
+                                <div class="prio-dot"></div>
+                                <span class="prio-name">Средний</span>
+                                <h3 class="prio-num">{{ average_priority }}</h3>
+                            </div>
+                            <div class="prio-box prio-low">
+                                <div class="prio-dot"></div>
+                                <span class="prio-name">Низкий</span>
+                                <h3 class="prio-num">{{ low_priority }}</h3>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- колонка прогресс дня -->
+                <div class="stats-right">
+                    <div class="stats-card daily-goal-card">
+                        <div class="card-header">
+                            <i data-lucide="target"></i>
+                            <h3>Цель на сегодня</h3>
+                        </div>
+                        
+                        <div class="goal-circle-wrapper">
+                            <div class="progress-circle large" id="goalCircle" data-percent="{{ percent }}" style="--progress: 0%;">
+                                <span id="goalPercentText">0%</span>
+                            </div>
+                        </div>
+                        
+                        <div class="goal-text">
+                            <p>Выполнено: <strong>{{ completed }} из {{ total or 0 }}</strong> задач</p>
+                            <span class="goal-subtitle">
+                                {% if user and user.daily_goal %}
+                                    Ваша норма: {{ user.daily_goal }}
+                                {% else %}
+                                    Норма не указана в профиле
+                                {% endif %}
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block app_js %}
+    <script src="{{ url_for('static', filename='javaScript/stats.js') }}"></script>
+{% endblock %}

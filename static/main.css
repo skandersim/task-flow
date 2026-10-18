@@ -1,0 +1,469 @@
+.main-content {
+    margin-left: 246px; /* отступ слева */
+    padding: 60px 24px 40px 32px; /* внутриние отступы */
+    min-height: calc(100vh - 72px); /* минимальная высота */
+    box-sizing: border-box; /* удерживает элементы в заданных размерах, чтобы паддинги и рамки не раздували их */
+    width: calc(100% - 246px); /* ширина */
+    max-width: none; /* максимальная ширина нету */
+}
+
+/* разделяем на две колонки */
+.dashboard-grid {
+    display: grid; /* включаем грид (двухмерная сетка) */
+    grid-template-columns: 1fr 360px; /* правая колонка шире */
+    gap: 20px; /* отступы между элементами */
+    align-items: start; /* выравниваем элемент по верхнему краю своей ячейки */
+    width: 100%; /* ширина 100% */
+}
+
+/* левая колонка */
+.dashboard-left {
+    display: flex; /* включаем флекс */
+    flex-direction: column; /* выстраиваем сверху вниз */
+    gap: 24px; /* расстояние сверху */
+}
+
+/* 4 карточки (2х2) */
+.stat-grid {
+    display: grid; /* сетка для карточек, включаем грид */
+    grid-template-columns: repeat(2, 1fr); /* 2 колонки */
+    gap: 16px; /* расстояние между карточками */
+}
+
+.stat-card {
+    display: flex; /* включаем флекс, текст слева, иконка справа */
+    align-items: center; /* по центру по вертикали */
+    justify-content: space-between; /* разносим края */
+    padding: 24px; /* внутренний отступ */
+    background: var(--bg-card); /* фон */
+    border: 1px solid var(--border-color); /* рамка */
+    border-radius: 16px; /* закругление углов */
+    box-sizing: border-box; /* учитываем рамки */
+    transition: transform 0.2s ease, border-color 0.2s ease; /* плавный ховер */
+}
+
+/* блок при навидении */
+.stat-card:hover {
+    border-color: var(--accent-glow); /* ярче рамка при наведении */
+    transform: translateY(-2px); /* подъём карточки */
+}
+
+.stat-card-text {
+    display: flex; /* включаем флекс, колонка подпись + число */
+    flex-direction: column; /* сверху вниз */
+    gap: 8px; /* расстояние между элементами */
+}
+
+.stat-card h3 {
+    margin: 0; /* убираем отступы */
+    color: var(--text-sub); /* серая подпись */
+    font-size: 14px; /* размер шрифта */
+    font-weight: 500; /* жирность */
+    text-transform: uppercase; /* большими буквами */
+}
+
+.stat-card h2 {
+    margin: 0; /* убираем отступы */
+    color: var(--text-main); /* белая цифра */
+    font-size: 32px; /* размер */
+    font-weight: 700; /* жирный шрифт */
+}
+
+/* иконки в статистике */
+.stat-icon-wrapper {
+    display: flex; /*включам флекс, центрируем иконку */
+    align-items: center; /* по вертикали */
+    justify-content: center; /* по горизонтали */
+    width: 50px; /* ширина */
+    height: 50px; /* высота */
+    border-radius: 12px; /* закругленние углов */
+    background: var(--accent-alpha); /* полупрозрачный фон */
+    color: var(--accent-color); /* акцентная иконка */
+}
+
+.stat-icon-wrapper.success {
+    background: rgba(34, 197, 94, 0.1); /* зеленый фон */
+    color: #22c55e; /* зеленая иконка */
+}
+
+.stat-icon-wrapper.pending {
+    background: rgba(59, 130, 246, 0.1); /* синий фон */
+    color: #3b82f6; /* синяя иконка */
+}
+
+.stat-icon-wrapper.danger {
+    background: rgba(239, 68, 68, 0.1); /* красный фон */
+    color: #ef4444; /* красная иконка */
+}
+
+/* ближайшие задачи */
+.tasks-card {
+    background: var(--bg-card); /* тёмный фон */
+    border: 1px solid var(--border-color); /* акцентная рамка */
+    border-radius: 16px; /* закругление */
+    padding: 24px; /* отступы внутри */
+    min-height: 380px; /* минимальная высота */
+    display: flex; /* включаем флекс, гибкий контейнер */
+    flex-direction: column; /* колонкой */
+}
+
+.tasks-card-header {
+    display: flex; /* заголовок слева, ссылка справа */
+    align-items: center; /* по центру */
+    justify-content: space-between; /* по краям */
+    margin-bottom: 12px; /* отступ до шапки таблицы */
+}
+
+.tasks-card-header h2 {
+    margin: 0; /* убираем отступы */
+    color: var(--text-main); /* белый заголовок */
+    font-size: 18px; /* размер шрифта */
+    font-weight: 650; /* жирность */
+}
+
+.view-all-link {
+    color: var(--accent-color); /* акцентная ссылка */
+    font-size: 14px; /* размер шрифта */
+    font-weight: 500; /* средняя жирность */
+    text-decoration: none; /* без подчеркивания */
+    display: flex; /* для выравнивания с иконкой */
+    align-items: center; /* по центру */
+    transition: color 0.2s; /* плавное изменение цвета */
+}
+
+.view-all-link:hover {
+    color: var(--accent-hover); /* светлее при наведении */
+}
+
+.main-tasks-grid {
+    display: grid !important; /* включаем грид */
+    grid-template-columns: 44px minmax(0, 1.5fr) minmax(0, 1fr) 130px 100px !important; /* создаем 5 колонок с указаной шириной */
+    column-gap: 16px !important; /* отступы между элементами */
+    align-items: center !important; /* центрируем по вертикале */
+}
+
+/* шапка таблицы */
+.tasks-header-row {
+    height: 40px; /* высота шапки */
+    color: var(--text-sub); /* серый цвет текста */
+    font-size: 11px; /* мелкий шрифт */
+    font-weight: 700; /* жирный */
+    letter-spacing: 0.05em; /* трекинг */
+    text-transform: uppercase; /* все заглавные */
+    border-bottom: 1px solid var(--border-color); /* тонкая линия внизу */
+    padding: 0 16px !important; /* отступы по бокам внутри */
+    margin-bottom: 8px; /* отступ до задач */
+}
+
+.main-task-list {
+    display: flex; /* контейнер для списка */
+    flex-direction: column; /* сверху вниз */
+}
+
+.main-task-item {
+    position: relative; /* для цветной полоски слева */
+    padding: 14px 16px !important; /* внутренние отступы */
+    border-bottom: 1px solid var(--border-color); /* разделитель */
+    transition: background 0.2s ease; /* плавный ховер */
+}
+
+.main-task-item:last-child {
+    border-bottom: none; /* убираем линию у последней задачи */
+}
+
+.main-task-item:hover {
+    background: rgba(255, 255, 255, 0.03); /* лёгкая подсветка строки */
+}
+
+/* цветная полоска слева, приоритет */
+.main-task-item::before {
+    content: ""; /* обязательное свойство */
+    position: absolute; /* абсолютное позиционирование */
+    left: 0; /* прижимаем влево */
+    top: 0; /* от верха */
+    bottom: 0; /* до низа */
+    width: 3px; /* ширина полоски */
+    background-color: #52525b; /* серый по умолчанию */
+}
+
+.main-task-item.prio-high::before { background-color: #ef4444; } /* красная */
+.main-task-item.prio-average::before { background-color: #f59e0b; } /* желтая */
+.main-task-item.prio-low::before { background-color: #22c55e; } /* зеленая */
+.main-task-item.is-done::before { background-color: #22c55e; } /* зеленая если выполнено */
+
+/* кружок выполнения */
+.task-col-check {
+    display: flex; /* включаем флекс, центрируем */
+    align-items: center; /* по вертикали */
+    justify-content: center; /* по горизонтали */
+}
+
+.task-toggle {
+    background: none; /* без фона */
+    border: none; /* без рамки */
+    padding: 0; /* без отступов */
+    cursor: pointer; /* курсор палец */
+    display: flex; /* для иконки */
+}
+
+.task-status-icon {
+    width: 22px; /* ширина кружка */
+    height: 22px; /* высота кружка */
+    fill: none; /* прозрачный внутри */
+    stroke: currentColor; /* цвет контура */
+    stroke-width: 1.8; /* толщина контура */
+    color: var(--text-sub); /* серый по умолчанию */
+}
+
+.task-status-icon.icon-check { display: none; color: #22c55e; } /* скрываем галочку */
+.main-task-item.is-done .icon-circle { display: none; } /* прячем пустой круг при done */
+.main-task-item.is-done .icon-check { display: block; } /* показываем галочку при done */
+.task-status-icon.prio-high { color: #ef4444; } /* красный контур */
+.task-status-icon.prio-average { color: #f59e0b; } /* желтый контур */
+.task-status-icon.prio-low { color: #22c55e; } /* зеленый контур */
+
+/* название */
+.task-col-title h4 {
+    margin: 0; /* убираем отступы */
+    color: var(--text-main); /* белый текст */
+    font-size: 15px; /* размер шрифта */
+    font-weight: 500; /* жирность */
+    white-space: nowrap; /* в одну строку */
+    overflow: hidden; /* прячем лишнее */
+    text-overflow: ellipsis; /* многоточие */
+}
+
+.main-task-item.is-done .task-col-title h4 {
+    color: var(--text-sub); /* серый цвет для выполненных */
+    text-decoration: line-through; /* зачеркивание */
+}
+
+/* категория */
+.task-col-category {
+    color: var(--text-sub); /* светло-серый текст */
+    font-size: 14px; /* размер шрифта */
+    white-space: nowrap; /* в одну строку */
+    overflow: hidden; /* прячем лишнее */
+    text-overflow: ellipsis; /* многоточие */
+}
+
+/* приоритет */
+.priority-badge p {
+    margin: 0; /* без отступов */
+    padding: 6px 12px; /* внутренние отступы */
+    border-radius: 7px; /* закругление */
+    font-size: 13px; /* размер шрифта */
+    font-weight: 500; /* жирность */
+    white-space: nowrap; /* в одну строку */
+    border: 1px solid transparent; /* невидимая рамка */
+    width: fit-content; /* по ширине контента */
+}
+
+.priority-badge.high p { color: #ef4444; background: rgba(239, 68, 68, 0.08); border-color: rgba(239, 68, 68, 0.2); } /* красный бейдж */
+.priority-badge.average p { color: #f59e0b; background: rgba(245, 158, 11, 0.08); border-color: rgba(245, 158, 11, 0.2); } /* желтый бейдж */
+.priority-badge.low p { color: #22c55e; background: rgba(34, 197, 94, 0.08); border-color: rgba(34, 197, 94, 0.2); } /* зеленый бейдж */
+.priority-badge.none p { color: var(--text-sub); background: rgba(255, 255, 255, 0.03); border-color: var(--border-color); } /* серый бейдж */
+
+.tasks-header-row div:last-child,
+.task-col-date {
+    text-align: right;
+    padding-right: 8px; /* небольшой отступ от правого края рамки */
+    color: var(--text-main);
+}
+
+/* пустые задачи */
+.main-empty-tasks {
+    flex: 1; /* занимаем все место */
+    display: flex; /* флекс */ 
+    flex-direction: column; /* колонкой */
+    align-items: center; /* по центру */
+    justify-content: center; /* по центру */
+    text-align: center; /* текст по центру */
+    gap: 12px; /* расстояние между элементами */
+    padding: 40px 20px; /* отступы */
+}
+
+.main-empty-tasks .empty-icon {
+    width: 44px; /* ширина иконки */
+    height: 44px; /* высота иконки */
+    color: var(--accent-color); /* акцентный цвет */
+    opacity: 0.5; /* полупрозрачная */
+}
+
+.main-empty-tasks h3 {
+    margin: 0; /* без отступов */
+    color: var(--text-main); /* белый текст */
+    font-size: 18px; /* размер шрифта */
+}
+
+.main-empty-tasks p {
+    margin: 0 0 12px; /* отступ снизу */
+    color: var(--text-sub); /* серый текст */
+    font-size: 14px; /* размер шрифта */
+}
+
+.dashboard-right {
+    display: flex; /* колонкой */
+    flex-direction: column; /* сверху вниз */
+    gap: 3px !important; /* расстояние между блоками */
+    width: 340px !important;
+}
+
+.calendar-card,
+.progress-card {
+    background: var(--bg-card); /* тёмный фон */
+    border: 1px solid var(--border-color); /* акцентная рамка */
+    border-radius: 16px; /* закругление */
+    padding: 24px; /* отступы внутри */
+    margin-bottom: 20px;
+}
+
+/* календарь */
+.calendar-card {
+    min-height: 255px; /* минимальная высота */
+    display: flex; /* флекс */
+    flex-direction: column; /* колонкой */
+}
+
+.cal-header {
+    display: flex; /* в ряд */
+    align-items: center; /* по центру */
+    gap: 8px; /* расстояние до текста */
+    margin-bottom: 16px; /* отступ снизу */
+    color: var(--text-main); /* белый цвет */
+    font-size: 15px; /* размер шрифта */
+    font-weight: 600; /* жирный */
+}
+
+.cal-header svg {
+    width: 18px; /* размер иконки */
+    height: 18px; /* размер иконки */
+    color: var(--accent-color); /* акцентная иконка */
+}
+
+.calendar-placeholder {
+    flex: 1; /* занимает всё место */
+    display: flex; /* флекс */
+    align-items: center; /* центрируем */
+    justify-content: center; /* центрируем */
+    text-align: center; /* текст по центру */
+}
+
+.calendar-placeholder p {
+    margin: 0; /* без отступов */
+    color: var(--text-sub); /* серый текст */
+    font-size: 13px; /* размер шрифта */
+}
+
+/* прогресс */
+.progress-card {
+    text-align: center; /* всё по центру */
+    height: 382px;
+}
+
+.progress-card h3 {
+    margin: 0 0 24px; /* отступ снизу */
+    color: var(--text-main); /* белый цвет */
+    font-size: 16px; /* размер шрифта */
+    font-weight: 600; /* жирный */
+}
+
+.progress-circle {
+    width: 140px; /* ширина бублика */
+    height: 140px; /* высота бублика */
+    margin: 0 auto 20px; /* центрируем по горизонтали */
+    border-radius: 50%; /* круг */
+    /* Градиент закрашивает сектор от 0 до значения --progress */
+    background: conic-gradient(var(--accent-color) var(--progress), var(--accent-alpha) 0deg);
+    display: flex; /* флекс для текста внутри */
+    align-items: center; /* по центру */
+    justify-content: center; /* по центру */
+    position: relative; /* для внутреннего круга */
+}
+
+.progress-circle::before {
+    content: ""; /* создаем внутренний круг */
+    position: absolute; /* абсолютное позиционирование */
+    inset: 12px; /* толщина кольца */
+    background-color: var(--bg-card); /* цвет фона подложки */
+    border-radius: 50%; /* круг */
+}
+
+.progress-circle span {
+    position: relative; /* чтобы текст был поверх дырки */
+    z-index: 1; /* на верхний слой */
+    color: var(--text-main); /* белые проценты */
+    font-size: 28px; /* размер шрифта */
+    font-weight: 750; /* жирный */
+}
+
+.progress-sub {
+    margin: 0; /* без отступов */
+    color: var(--text-sub); /* серый текст */
+    font-size: 12px; /* размер шрифта */
+    text-transform: uppercase; /* заглавными */
+    letter-spacing: 0.5px; /* расстояние между буквами */
+    font-weight: 600; /* жирный */
+}
+
+.header-subtitle {
+    margin: 0 0 44px; /* наружние отступы */
+    color: var(--text-sub); /* цвет */
+    font-size: 15px; /* размер текста*/
+}
+
+/* список событий на сегодня */
+.today-events-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    overflow-y: auto;
+    max-height: 180px;
+}
+
+.today-event-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 12px;
+    background: var(--bg-input);
+    border: 1px solid var(--border-color);
+    border-radius: 10px;
+}
+
+.today-event-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    flex-shrink: 0;
+    background: var(--accent-color);
+}
+
+/* цвета точек по приоритету */
+.today-event-item.prio-high .today-event-dot { background: #ef4444; }
+.today-event-item.prio-average .today-event-dot { background: #f59e0b; }
+.today-event-item.prio-low .today-event-dot { background: #10b981; }
+
+.today-event-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    min-width: 0;
+}
+
+.today-event-title {
+    font-size: 13px;
+    color: var(--text-main);
+    font-weight: 500;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.today-event-time {
+    font-size: 12px;
+    color: var(--text-sub);
+    margin-left: 8px;
+    flex-shrink: 0;
+}

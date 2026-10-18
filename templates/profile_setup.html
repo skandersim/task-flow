@@ -1,0 +1,97 @@
+{% extends 'base.html' %}
+
+{% block title %}Регистрация. Шаг-2 | TaskFlow{% endblock %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='profile_setup.css') }}">
+{% endblock %}
+
+{% block main_content %}
+    <div class="auth-container">
+        <div class="auth-card">
+            <div class="auth-header">
+                <h1>Регистрация</h1>  
+                <p>Шаг 2 из 2: Создание аккаунта</p>
+            </div>
+
+            <form class="auth-form" action="/profile-setup" method="POST" enctype="multipart/form-data">
+                <label class="avatar-container" id="avatarContainer" for="avatarInput">
+                    <input type="file" name="avatar" id="avatarInput" accept="image/*" hidden>
+
+                    <div class="user-avatar">
+                        <i data-lucide="user"></i>
+                        <img id="avatarPreview" alt="Аватар пользователя">
+                    </div>
+
+                    <span class="avatar-add"></span>
+                </label>
+
+                <div class="field-block">
+                    <label class="field-label">Ваше имя</label>
+                    <div class="input-group">
+                        <span class="input-icon"><i data-lucide="user"></i></span>
+                        <input type="text" name="name" placeholder="Введите ваше имя" required>
+                    </div>
+                </div>
+
+                <div class="field-block">
+                    <label class="field-label">Ваш возраст</label>
+                    <div class="input-group">
+                        <span class="input-icon"><i data-lucide="calendar-days"></i></span>
+                        <input type="number" name="age" placeholder="Например: 16" min="10" max="100" required>
+                    </div>
+                </div>
+
+                <div class="field-block">
+                    <label class="field-label">Основное направление</label>
+                    <div class="custom-select">
+                        <input type="hidden" name="hobbies" required>
+                        <button type="button" class="custom-select-trigger">
+                            <i data-lucide="compass" class="trigger-icon"></i>
+                            <span class="custom-select-value">Выберите варианты...</span>
+                            <i data-lucide="chevron-down" class="trigger-arrow"></i>
+                        </button>
+                        <div class="custom-select-menu">
+                            <button type="button" class="status-option" data-value="work">Работа и проекты</button>
+                            <button type="button" class="status-option" data-value="study">Учёба и саморазвитие</button>
+                            <button type="button" class="status-option" data-value="sport">Спорт и здоровье</button>
+                            <button type="button" class="status-option" data-value="lifestyle">Повседневные дела</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="field-block">
+                    <label class="field-label">Цель по задачам на день</label>
+                    <div class="custom-select">
+                        <input type="hidden" name="daily_goal" required>
+                        <button type="button" class="custom-select-trigger">
+                            <i data-lucide="check-square" class="trigger-icon"></i>
+                            <span class="custom-select-value">Выберите варианты...</span>
+                            <i data-lucide="chevron-down" class="trigger-arrow"></i>
+                        </button>
+                        <div class="custom-select-menu">
+                            <button type="button" class="status-option" data-value="1-3 задач">1-3 задач</button>
+                            <button type="button" class="status-option" data-value="4-7 задач">4-7 задач</button>
+                            <button type="button" class="status-option" data-value="8+ задач">8+ задач</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="field-block">
+                    <label class="field-label">Ваша цель</label>
+                    <div class="input-group">
+                        <span class="input-icon textarea-icon"><i data-lucide="target"></i></span>
+                        <textarea name="goals" placeholder="Опишите ваши цели..." maxlength="500"></textarea>
+                    </div>
+                    <div class="char-counter">0/500</div>
+                </div>
+
+                <button type="submit" class="btn btn-primary btn-full">Завершить регистрацию</button>
+            </form>
+        </div>
+    </div>
+{% endblock %}
+
+{% block extra_js %}
+    <script src="{{ url_for('static', filename='javaScript/profile_setup.js') }}"></script>
+{% endblock %}

@@ -1,0 +1,157 @@
+{% extends 'base_app.html' %}
+
+{% block title %}Профиль | TaskFlow{% endblock %}
+
+{% block app_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='profile.css') }}">
+{% endblock %}
+
+{% block app_content %}
+<main class="profile-page">
+    <div class="profile-layout">
+        <div class="profile-main">
+
+            <section class="profile-hero">
+                <div class="profile-avatar">
+                    {% if user.avatar %}
+                    <img src="{{ user.avatar }}" alt="{{ user.name or 'Аватар пользователя' }}">
+                    {% else %}
+                    <span class="profile-avatar-fallback">
+                        {{ (user.name or user.login or 'T')[:1]|upper }}
+                    </span>
+                    {% endif %}
+                </div>
+
+                <div class="profile-identity">
+                    <span class="profile-kicker">МОЙ ПРОФИЛЬ</span>
+                    <h1>{{ user.name or 'Пользователь' }}</h1>
+                    <p class="profile-login">{{ user.login or 'Логин не указан' }}</p>
+                </div>
+
+                <div class="profile-level">
+                    <span class="profile-level-symbol" aria-hidden="true">✦</span>
+                    <div>
+                        <span class="profile-level-label">Текущий уровень</span>
+                        <strong>{{ user.level or 'Новичок' }}</strong>
+                    </div>
+                </div>
+            </section>
+
+            <section class="profile-section">
+                <div class="profile-section-heading">
+                    <div>
+                        <h2>Информация о профиле</h2>
+                        <p>Данные вашего аккаунта в TaskFlow</p>
+                    </div>
+                    <span class="readonly-badge">Только просмотр</span>
+                </div>
+
+                <div class="profile-info-grid">
+                    <article class="profile-info-card">
+                        <span class="profile-info-label">Дата регистрации</span>
+                        <strong class="profile-info-value">
+                            {% set registration_date = user.registered_at|string %}
+                            {% if registration_date|length >= 10 %}
+                            {{ registration_date[8:10] }}.{{ registration_date[5:7] }}.{{ registration_date[:4] }}
+                            {% else %}
+                            Не указана
+                            {% endif %}
+                        </strong>
+                    </article>
+
+                    <article class="profile-info-card">
+                        <span class="profile-info-label">Возраст</span>
+                        <strong class="profile-info-value">
+                            {{ user.age or 'Не указан' }}
+                        </strong>
+                    </article>
+
+                    <article class="profile-info-card">
+                        <span class="profile-info-label">Направление</span>
+                        <strong class="profile-info-value">
+                            {% if user.hobbies == 'work' %}
+                            Работа и проекты
+                            {% elif user.hobbies == 'study' %}
+                            Учёба и саморазвитие
+                            {% elif user.hobbies == 'sport' %}
+                            Спорт и здоровье
+                            {% elif user.hobbies == 'lifestyle' %}
+                            Повседневные дела
+                            {% else %}
+                            {{ user.hobbies or 'Не указано' }}
+                            {% endif %}
+                        </strong>
+                    </article>
+
+                    <article class="profile-info-card">
+                        <span class="profile-info-label">Цель на день</span>
+                        <strong class="profile-info-value">
+                            {{ user.daily_goal or 'Не указана' }}
+                        </strong>
+                    </article>
+                </div>
+            </section>
+
+            <section class="profile-goal-card">
+                <div class="profile-goal-heading">
+                    <span class="profile-goal-symbol" aria-hidden="true">◎</span>
+                    <div>
+                        <h2>Основная цель</h2>
+                        <p>То, к чему вы стремитесь</p>
+                    </div>
+                </div>
+
+                {% if user.goal %}
+                <p class="profile-goal-text">{{ user.goal }}</p>
+                {% else %}
+                <p class="profile-goal-empty">Основная цель пока не указана.</p>
+                {% endif %}
+            </section>
+        </div>
+
+        <aside class="profile-sidebar">
+            <section class="motivation-card">
+                <svg class="motivation-icon" viewBox="0 0 48 48" aria-hidden="true">
+                    <path d="M7 38 19 9l8 18 5-9 9 20H7Z"></path>
+                    <path d="m13 25 8 3 7-3 8 4"></path>
+                </svg>
+
+                <h2>Маленькие шаги приводят к большим результатам</h2>
+                <p>Продолжай в том же духе!</p>
+                <div class="animated-line"></div>
+            </section>
+
+            <div class="mini-calendar mini-calendar-card">
+                <div class="mini-calendar-header">
+                    <button type="button" class="mini-nav-btn prev-btn">
+                        <i data-lucide="chevron-left"></i>
+                    </button>
+
+                    <h3></h3>
+
+                    <button type="button" class="mini-nav-btn next-btn">
+                        <i data-lucide="chevron-right"></i>
+                    </button>
+                </div>
+
+                <div class="mini-calendar-weekdays">
+                    <div class="weekday">Пн</div>
+                    <div class="weekday">Вт</div>
+                    <div class="weekday">Ср</div>
+                    <div class="weekday">Чт</div>
+                    <div class="weekday">Пт</div>
+                    <div class="weekday">Сб</div>
+                    <div class="weekday">Вс</div>
+                </div>
+
+                <div class="mini-calendar-grid" id="miniCalendarGrid"></div>
+            </div>
+        </aside>
+
+    </div>
+</main>
+{% endblock %}
+
+{% block app_js %}
+    <script src="{{ url_for('static', filename='javaScript/profile.js') }}"></script>
+{% endblock %}

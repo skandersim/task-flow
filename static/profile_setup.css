@@ -1,0 +1,218 @@
+.auth-container {
+    flex: 1; /* растягиваем контейнер на всю доступную высоту */
+    display: flex; /* включаем флекс */
+    align-items: center; /* выравниваем по вертикали по центру */
+    justify-content: center; /* выравниваем по горизонтали по центру */
+    padding: 60px 20px; /* внутренние отступы сверху/снизу и по бокам */
+}
+
+.auth-card {
+    background-color: var(--bg-card); /* задаем темный цвет фона карточки */
+    border: 1px solid var(--border-color); /* добавляем тонкую золотистую рамку */
+    border-radius: 28px; /* скругляем углы карточки */
+    padding: 44px 40px; /* внутренние отступы со всех сторон */
+    width: 100%; /* занимаем всю доступную ширину */
+    max-width: 500px; /* ограничиваем максимальную ширину карточки */
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5); /* добавляем мягкую глубокую тень */
+}
+
+.auth-header {
+    text-align: center; /* выравниваем текст по центру */
+    margin-bottom: 32px; /* внешний отступ снизу */
+}
+
+.auth-header h1 {
+    font-size: 32px; /* задаем размер шрифта заголовка */
+    font-weight: 800; /* делаем шрифт очень жирным */
+    color: var(--text-main); /* устанавливаем белый цвет текста */
+    margin-bottom: 8px; /* внешний отступ снизу */
+}
+
+.auth-header p {
+    font-size: 14px; /* размер шрифта для описания */
+    color: var(--text-sub); /* приглушенный сероватый цвет текста */
+}
+
+.auth-form {
+    display: flex; /* включаем флекс */
+    flex-direction: column; /* располагаем элементы формы в колонку */
+    gap: 16px; /* расстояние между элементами формы */
+}
+
+.input-group {
+    position: relative; /* относительное позиционирование для дочерних элементов */
+    display: flex; /* включаем флекс */
+    align-items: center; /* выравниваем элементы по вертикали по центру */
+}
+
+.input-icon {
+    position: absolute; /* абсолютное позиционирование внутри группы */
+    left: 16px; /* отступ слева */
+    color: var(--text-sub); /* цвет иконки */
+    display: flex; /* включаем флекс */
+    align-items: center; /* выравниваем по вертикали */
+    pointer-events: none; /* отключаем клики по иконке */
+    z-index: 2; /* поднимаем иконку поверх остальных элементов */
+}
+
+.textarea-icon {
+    top: 16px; /* смещение сверху для иконки в текстовой области */
+    align-items: flex-start; /* выравниваем иконку по верхнему краю */
+}
+
+.auth-form input,
+.auth-form select,
+.auth-form textarea {
+    width: 100%; /* занимаем всю доступную ширину */
+    background-color: var(--bg-input); /* цвет фона полей ввода */
+    border: 1px solid var(--border-color); /* тонкая полупрозрачная рамка */
+    border-radius: 12px; /* скругление углов полей */
+    padding: 14px 16px 14px 46px; /* внутренние отступы с запасом под иконку слева */
+    color: var(--text-main); /* белый цвет вводимого текста */
+    font-size: 15px; /* размер шрифта */
+    outline: none; /* убираем стандартную обводку браузера */
+    transition: all 0.2s ease; /* плавная анимация при изменениях */
+}
+
+.auth-form select {
+    appearance: none; /* убираем стандартную стрелочку браузера у селекта */
+    -webkit-appearance: none; /* убираем стрелочку для сафари и хрома на мобилках */
+    cursor: pointer; /* меняем курсор на указатель */
+    padding-right: 40px; /* оставляем место справа под свою кастомную стрелку */
+}
+
+.select-arrow {
+    position: absolute; /* абсолютное позиционирование стрелочки */
+    right: 16px; /* отступ справа */
+    color: var(--text-sub); /* цвет иконки стрелочки */
+    pointer-events: none; /* отключаем клики по стрелке */
+    display: flex; /* включаем флекс */
+    align-items: center; /* выравниваем по вертикали */
+}
+
+.auth-form textarea {
+    padding-left: 46px; /* отступ слева под иконку */
+    height: 120px; /* фиксированная высота текстовой области */
+    resize: none; /* запрещаем пользователю растягивать поле мышкой */
+    padding-top: 14px; /* внутренний отступ сверху */
+}
+
+.auth-form input:focus,
+.auth-form select:focus,
+.auth-form textarea:focus {
+    border-color: var(--accent-color); /* меняем цвет рамки при фокусе на золотистый */
+    box-shadow: 0 0 0 3px var(--accent-alpha); /* добавляем мягкое свечение */
+}
+
+.auth-form input::placeholder,
+.auth-form textarea::placeholder {
+    color: var(--text-sub); /* цвет текста подсказки */
+}
+
+.char-counter {
+    text-align: right; /* выравниваем текст счетчика символов по правому краю */
+    font-size: 12px; /* маленький размер шрифта */
+    color: var(--text-sub); /* приглушенный цвет текста */
+    margin-top: 6px; /* внешний отступ сверху */
+}
+
+.btn-full {
+    width: 100%; /* растягиваем кнопку на всю ширину */
+    height: 52px; /* фиксированная высота кнопки */
+    font-size: 16px; /* размер шрифта */
+    margin-top: 8px; /* внешний отступ сверху */
+}
+
+/* стили для подписей над полями ввода */
+.field-block {
+    display: flex; /* включаем флекс */
+    flex-direction: column; /* располагаем все элементы в колонку */
+    gap: 6px; /* расстояние между элементами 6 пикселей */
+}
+
+.field-label {
+    font-size: 13px; /* размер шрифта подписи */
+    font-weight: 600; /* полужирный шрифт */
+    color: var(--text-sub); /* цвет текста подписи */
+    margin-left: 4px; /* небольшой отступ слева */
+    letter-spacing: 0.3px; /* межбуквенный интервал */
+}
+
+/* когда счетчик доходит до лимита, он становится красным */
+.char-counter.limit-reached {
+    color: #ef4444; /* приятный красный цвет */
+    font-weight: 600; /* жирность текста */
+}
+
+.avatar-container {
+    position: relative;
+    width: 70px;
+    height: 70px;
+    cursor: pointer;
+    margin: 0 auto; /* центрируем всю кнопку на странице */
+}
+
+.user-avatar {
+    position: relative; /* обязательно для картинки */
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    border: 2px solid var(--accent-color);
+    background: var(--bg-input);
+    overflow: hidden;
+    color: var(--accent-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.user-avatar svg {
+    width: 32px;
+    height: 32px;
+}
+
+/* картинка-превью перекрывает иконку */
+.user-avatar img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: none; 
+    z-index: 2;
+}
+
+.avatar-add {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    background: var(--accent-color);
+    border: 3px solid var(--bg-card);
+    z-index: 3;
+}
+
+/* крестик через линии */
+.avatar-add::before,
+.avatar-add::after {
+    content: '';
+    position: absolute;
+    background: var(--bg-card);
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 1px;
+}
+
+.avatar-add::before {
+    width: 10px;
+    height: 2px;
+}
+
+.avatar-add::after {
+    width: 2px;
+    height: 10px;
+}

@@ -1,0 +1,181 @@
+{% extends 'base_app.html' %}
+
+{% block title %}Главная | TaskFlow{% endblock %}
+
+{% block app_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}">
+{% endblock %}
+
+{% block app_content %}
+
+<div class="main-content">
+    
+    <!-- заголовок -->
+    <div class="main-header">
+        <h1>Привет, {{ user.name if user and user.name else (name | default('Пользователь')) }}!</h1>
+        <p class="header-subtitle">Вот что происходит с вашими задачами сегодня.</p>
+    </div>
+
+    <div class="dashboard-grid">
+        
+        <!-- левая колонка -->
+        <div class="dashboard-left">
+            
+            <!-- 4 карточки статистики -->
+            <div class="stat-grid">
+                <div class="stat-card">
+                    <div class="stat-card-text">
+                        <h3>Всего задач</h3>
+                        <h2 id='total-counter'>{{ total | default(0) }}</h2>
+                    </div>
+                    <div class="stat-icon-wrapper"><i data-lucide="list"></i></div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-card-text">
+                        <h3>Выполнено</h3>
+                        <h2 id="completed-counter">{{ completed | default(0) }}</h2>
+                    </div>
+                    <div class="stat-icon-wrapper success"><i data-lucide="check-circle"></i></div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-card-text">
+                        <h3>Осталось</h3>
+                        <h2 id="pending-counter">{{ pending | default(0) }}</h2>
+                    </div>
+                    <div class="stat-icon-wrapper pending"><i data-lucide="clock"></i></div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-card-text">
+                        <h3>Просрочено</h3>
+                        <h2 >{{ overdue | default(0) }}</h2>
+                    </div>
+                    <div class="stat-icon-wrapper danger"><i data-lucide="alert-circle"></i></div>
+                </div>
+            </div>
+
+            <!-- ближайшие задачи -->
+            <div class="tasks-card">
+                <div class="tasks-card-header">
+                    <h2>Ближайшие задачи</h2>
+                    {% if tasks %}
+                        <a href="/tasks" class="view-all-link">Все задачи <i data-lucide="chevron-right" size="16"></i></a>
+                    {% endif %}
+                </div>
+
+                {% if tasks %}
+                    <!-- шапка таблицы задач -->
+                    <div class="main-tasks-grid tasks-header-row">
+                        <div></div>
+                        <div>Задача</div>
+                        <div>Категория</div>
+                        <div>Приоритет</div>
+                        <div>Срок</div>
+                    </div>
+
+                    <div class="main-task-list">
+                        {% for task in tasks[:4] %}
+                            <div class="main-task-item main-tasks-grid prio-{{ task.priority or 'none' }}{% if task.status == 'done' %} is-done{% endif %}">
+                                
+                                <!-- кружок выполнения -->
+                                <div class="task-col-check">
+                                    <button type="button" class="task-toggle" data-task-id="{{ task.id }}" data-status="{{ task.status }}">
+                                        <svg class="task-status-icon icon-circle prio-{{ task.priority or 'none' }}" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"></circle></svg>
+                                        <svg class="task-status-icon icon-check" viewBox="0 0 24 24" fill="currentColor" stroke="none"><circle cx="12" cy="12" r="9" fill="currentColor"></circle><path d="M8.5 12.2 10.8 14.5 15.5 9.5" stroke="#0b0d10" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+                                    </button>
+                                </div>
+
+                                <!-- название -->
+                                <div class="task-col-title">
+                                    <h4>{{ task.title }}</h4>
+                                </div>
+
+                                <!-- категория -->
+                                <div class="task-col-category">
+                                    {% if task.hobbies == 'work' %}Работа и проекты
+                                    {% elif task.hobbies == 'study' %}Учёба и саморазвитие
+                                    {% elif task.hobbies == 'sport' %}Спорт и здоровье
+                                    {% elif task.hobbies == 'lifestyle' %}Повседневные дела
+                                    {% else %}{{ task.hobbies or '—' }}{% endif %}
+                                </div>
+
+                                <!-- приоритет -->
+                                <div class="task-col-priority">
+                                    <div class="priority-badge {{ task.priority or 'none' }}">
+                                        <p>
+                                            {% if task.priority == 'high' %}Высокий
+                                            {% elif task.priority == 'average' %}Средний
+                                            {% elif task.priority == 'low' %}Низкий
+                                            {% else %}—{% endif %}
+                                        </p>
+                                    </div>
+                                </div>
+
+                                <!-- дата -->
+                                <div class="task-col-date">
+                                    {{ task.due_date or '—' }}
+                                </div>
+
+                            </div>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    <div class="main-empty-tasks">
+                        <i data-lucide="check-square" class="empty-icon"></i>
+                        <h3>Задач пока нет</h3>
+                        <p>Создайте свою первую задачу, чтобы начать планирование</p>
+                        <a href="/tasks" class="btn btn-primary">+ Добавить задачу</a>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+
+        <!-- правая колонка -->
+        <div class="dashboard-right">
+            
+            <!-- календарь -->
+            <div class="calendar-card">
+                <div class="cal-header">
+                    <i data-lucide="calendar"></i>
+                    <span>События на сегодня</span>
+                </div>
+
+                {% if today_tasks %}
+                    <div class="today-events-list">
+                        {% for task in today_tasks %}
+                            <div class="today-event-item prio-{{ task.priority or 'low' }}">
+                                <span class="today-event-dot"></span>
+                                <div class="today-event-info">
+                                    <span class="today-event-title">{{ task.title }}</span>
+                                    {% if task.due_time %}
+                                        <span class="today-event-time">{{ task.due_time }}</span>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    <div class="calendar-placeholder">
+                        <p>Событий на сегодня нет</p>
+                    </div>
+                {% endif %}
+            </div>
+
+            <!-- прогресс -->
+            <div class="progress-card">
+                <h3>Прогресс выполнения</h3>
+                <div class="progress-circle" style="--progress: {{ percent }}%;">
+                    <span>{{ percent }}%</span>
+                </div>
+                <p class="progress-sub">ОТ ВСЕХ ЗАДАЧ ВЫПОЛНЕНО</p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block app_js %}
+    <script src="{{ url_for('static', filename='javaScript/main.js') }}"></script>
+{% endblock %}

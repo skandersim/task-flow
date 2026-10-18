@@ -1,0 +1,321 @@
+.stats-page {
+    margin-left: 246px;
+    width: calc(100% - 246px);
+    padding: 40px 32px;
+    min-height: calc(100vh - 72px);
+    box-sizing: border-box;
+}
+
+/* шапка */
+.stats-header .header-top {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.stats-header .header-top svg,
+.stats-header .header-top i {
+    width: 32px;
+    height: 32px;
+    color: var(--accent-color);
+}
+
+.stats-header h1 {
+    margin: 0;
+    font-size: 28px;
+    font-weight: 700;
+    color: var(--text-main);
+}
+
+.stats-header p {
+    margin: 6px 0 0 44px;
+    color: var(--text-sub);
+    font-size: 15px;
+}
+
+.stats-body {
+    margin-top: 32px;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+/* кпи карточки */
+.kpi-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+}
+
+.kpi-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: 16px;
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    box-sizing: border-box;
+    transition: border-color 0.2s ease, transform 0.2s ease;
+}
+
+.kpi-card:hover {
+    border-color: var(--accent-glow);
+    transform: translateY(-2px);
+}
+
+.kpi-info h3 {
+    margin: 0 0 8px;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text-sub);
+    text-transform: uppercase;
+    letter-spacing: 0.4px;
+}
+
+.kpi-value {
+    margin: 0;
+    font-size: 32px;
+    font-weight: 700;
+    color: var(--text-main);
+    line-height: 1;
+}
+
+.kpi-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--accent-alpha);
+    color: var(--accent-color);
+    flex-shrink: 0;
+}
+
+.kpi-icon svg,
+.kpi-icon i {
+    width: 22px;
+    height: 22px;
+}
+
+/* цветные акценты kpi */
+.kpi-card.success .kpi-icon {
+    background: rgba(16, 185, 129, 0.12);
+    color: #10b981;
+}
+
+.kpi-card.warning .kpi-icon {
+    background: rgba(59, 130, 246, 0.12);
+    color: #3b82f6;
+}
+
+.kpi-card.danger .kpi-icon {
+    background: rgba(239, 68, 68, 0.12);
+    color: #ef4444;
+}
+
+/* нижняя часть */
+.stats-details {
+    display: grid;
+    grid-template-columns: 1.6fr 1fr;
+    gap: 20px;
+    align-items: start;
+}
+
+.stats-left {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.stats-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: 16px;
+    padding: 22px;
+    box-sizing: border-box;
+}
+
+.card-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.card-header svg,
+.card-header i {
+    width: 18px;
+    height: 18px;
+    color: var(--accent-color);
+}
+
+.card-header h3 {
+    margin: 0;
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--text-main);
+}
+
+/* категории */
+.categories-list {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+
+.category-item .cat-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+    gap: 12px;
+}
+
+.category-item .cat-info span:first-child {
+    color: var(--text-main);
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.cat-count {
+    color: var(--text-sub);
+    font-size: 13px;
+    white-space: nowrap;
+}
+
+.progress-bar-bg {
+    width: 100%;
+    height: 8px;
+    background: rgba(150, 150, 150, 0.15); /* нейтральный фон для полоски в любой теме */
+    border-radius: 999px;
+    overflow: hidden;
+}
+
+/* плавный выезд полосок */
+.progress-bar-fill {
+    height: 100%;
+    border-radius: 999px;
+    background: var(--accent-color);
+    width: 0%; /* стартуем с нуля */
+    transition: width 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* цвета категорий */
+.cat-study .progress-bar-fill { background: #a855f7; }
+.cat-work .progress-bar-fill { background: #3b82f6; }
+.cat-sport .progress-bar-fill { background: #10b981; }
+.cat-lifestyle .progress-bar-fill { background: #f97316; }
+
+/* приоритеты */
+.priorities-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+}
+
+.prio-box {
+    background: var(--bg-input);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    padding: 16px 14px;
+    text-align: center;
+}
+
+.prio-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    margin: 0 auto 10px;
+    background: var(--text-sub);
+}
+
+.prio-name {
+    display: block;
+    color: var(--text-sub);
+    font-size: 12px;
+    font-weight: 600;
+    margin-bottom: 8px;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+}
+
+.prio-num {
+    margin: 0;
+    color: var(--text-main);
+    font-size: 28px;
+    font-weight: 700;
+    line-height: 1;
+}
+
+/* цвета приоритетов */
+.prio-box.prio-high .prio-dot { background: #ef4444; }
+.prio-box.prio-average .prio-dot { background: #f59e0b; }
+.prio-box.prio-low .prio-dot { background: #10b981; }
+
+.prio-box.prio-high {
+    border-color: rgba(239, 68, 68, 0.25);
+    background: rgba(239, 68, 68, 0.06);
+}
+.prio-box.prio-average {
+    border-color: rgba(245, 158, 11, 0.25);
+    background: rgba(245, 158, 11, 0.06);
+}
+.prio-box.prio-low {
+    border-color: rgba(16, 185, 129, 0.25);
+    background: rgba(16, 185, 129, 0.06);
+}
+
+/* цель на день */
+.daily-goal-card {
+    min-height: 495px;
+    display: flex;
+    flex-direction: column;
+}
+
+.goal-circle-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 24px 0 20px;
+    flex: 1;
+}
+
+/* круг прогресса */
+.progress-circle.large {
+    width: 240px;
+    height: 240px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background:
+        radial-gradient(closest-side, var(--bg-card) 78%, transparent 80% 100%),
+        conic-gradient(var(--accent-color) var(--progress, 0%), rgba(150, 150, 150, 0.15) 0);
+}
+
+.progress-circle.large span {
+    font-size: 28px;
+    font-weight: 700;
+    color: var(--text-main);
+}
+
+.goal-text {
+    text-align: center;
+}
+
+.goal-text p {
+    margin: 0 0 6px;
+    color: var(--text-main);
+    font-size: 15px;
+}
+
+.goal-text strong {
+    color: var(--text-main);
+}
+
+.goal-subtitle {
+    color: var(--text-sub);
+    font-size: 13px;
+}

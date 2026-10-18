@@ -1,0 +1,466 @@
+.profile-page,
+.profile-page * {
+    box-sizing: border-box;
+}
+
+.profile-page {
+    width: calc(100% - 200px);
+    min-height: calc(100vh - 72px);
+    margin-left: 200px;
+    padding: 86px 40px 48px;
+    color: var(--text-main);
+}
+
+/* основная раскладка профиль слева, боковые карточки справа */
+.profile-layout {
+    display: grid;
+    width: calc(100% - 28px);
+    max-width: none;
+    margin-left: 28px;
+    grid-template-columns: minmax(0, 1fr) 300px; /* minmax(0, 1fr) - занимает оставшееся место, но может сжаться
+300px колонка фиксированной ширины 300 пикселей */
+    align-items: stretch;
+    gap: 20px;
+}
+
+.profile-main {
+    min-width: 0;
+    display: grid;
+    align-content: start; /* прижимает всю группу строк грид к началу контейнера */
+    gap: 18px;
+}
+
+.profile-sidebar {
+    width: 100%;
+    min-width: 0;
+    display: grid;
+    grid-template-rows: minmax(230px, 0.9fr) minmax(280px, 1.1fr); 
+    align-content: stretch; /* растягивает дочерние элементы, чтобы они заняли доступное место по поперечной оси в грид это обычно высота строки */
+    gap: 18px;
+}
+
+/* верхняя карточка профиля */
+.profile-hero {
+    min-width: 0;
+    display: grid;
+    grid-template-columns: 116px minmax(0, 1fr) auto;
+    align-items: center;
+    gap: 24px;
+    padding: 26px;
+    border: 1px solid var(--border-color);
+    border-radius: 20px;
+    background: var(--bg-card);
+}
+
+.profile-avatar {
+    width: 112px;
+    height: 112px;
+    overflow: hidden;
+    display: grid;
+    place-items: center; /* центрирование элемента внутри его ячейки грид и по горизонтали, и по вертикали */
+    border: 1px solid var(--accent-color);
+    border-radius: 50%;
+    background: var(--bg-input);
+}
+
+.profile-avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Ммасштабирует картинку, чтобы она полностью заполнила заданную область, сохраняя пропорции */
+}
+
+.profile-avatar-fallback {
+    color: var(--accent-color);
+    font-size: 40px;
+    font-weight: 700;
+}
+
+.profile-identity {
+    min-width: 0;
+}
+
+.profile-kicker {
+    color: var(--accent-color);
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.12em; /* увеличивает расстояние между буквами em зависит от размера шрифта, чем крупнее текст, тем больше будет промежуток */
+}
+
+.profile-identity h1 {
+    margin: 8px 0 5px;
+    color: var(--text-main);
+    font-size: clamp(25px, 3vw, 34px); /* (минимум, желаемый размер, максимум) */
+    line-height: 1.15;
+    overflow-wrap: anywhere; /* разрешает длинному слову или строке переноситься в любом месте, если иначе она вылезла бы за край карточки */
+}
+
+.profile-login {
+    margin: 0;
+    color: var(--text-sub);
+    font-size: 15px;
+}
+
+/* уровень */
+.profile-level {
+    min-width: 170px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 14px 16px;
+    border: 1px solid var(--border-color);
+    border-radius: 15px;
+    background: var(--bg-input);
+}
+
+.profile-level-symbol {
+    color: var(--accent-color);
+    font-size: 26px;
+}
+
+.profile-level-label {
+    display: block;
+    margin-bottom: 5px;
+    color: var(--text-sub);
+    font-size: 12px;
+}
+
+.profile-level strong {
+    color: var(--accent-color);
+    font-size: 16px;
+}
+
+/* карточка информации */
+.profile-section,
+.profile-goal-card {
+    min-width: 0;
+    padding: 24px;
+    border: 1px solid var(--border-color);
+    border-radius: 20px;
+    background: var(--bg-card);
+}
+
+.profile-section-heading {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 18px;
+}
+
+.profile-section-heading h2,
+.profile-goal-heading h2 {
+    margin: 0;
+    color: var(--text-main);
+    font-size: 19px;
+}
+
+.profile-section-heading p,
+.profile-goal-heading p {
+    margin: 6px 0 0;
+    color: var(--text-sub);
+    font-size: 13px;
+}
+
+.readonly-badge {
+    flex: 0 0 auto;
+    padding: 7px 11px;
+    border: 1px solid var(--border-color);
+    border-radius: 999px;
+    color: var(--text-sub);
+    font-size: 12px;
+}
+
+.profile-info-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr)); /* создаёт две одинаковые гибкие колонки например две карточки с данными в одной строке */
+    gap: 12px;
+}
+
+.profile-info-card {
+    position: relative;
+    min-width: 0;
+    min-height: 94px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 8px;
+    padding: 18px 18px 18px 24px;
+    overflow: hidden; /* обрезает содержимое, которое выходит за границы блока */
+    border: 1px solid var(--border-color);
+    border-radius: 14px;
+    background: var(--bg-input);
+}
+
+.profile-info-card::before {
+    content: "";
+    position: absolute;
+    top: 18px;
+    bottom: 18px;
+    left: 0;
+    width: 3px;
+    border-radius: 0 4px 4px 0;
+    background: var(--accent-color);
+}
+
+.profile-info-label {
+    color: var(--text-sub);
+    font-size: 13px;
+    font-weight: 500;
+}
+
+.profile-info-value {
+    color: var(--text-main);
+    font-size: 15px;
+    font-weight: 600;
+    line-height: 1.45;
+    overflow-wrap: anywhere;
+}
+
+/* основная цель */
+.profile-goal-card {
+    position: relative;
+    overflow: hidden;
+}
+
+.profile-goal-card::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    width: 3px;
+    background: var(--accent-color);
+}
+
+.profile-goal-heading {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.profile-goal-symbol {
+    color: var(--accent-color);
+    font-size: 25px;
+}
+
+.profile-goal-text,
+.profile-goal-empty {
+    margin: 20px 0 0;
+    color: var(--text-main);
+    font-size: 15px;
+    line-height: 1.7;
+    overflow-wrap: anywhere;
+}
+
+.profile-goal-empty {
+    color: var(--text-sub);
+}
+
+/* цитата и мини-календарь справа */
+.motivation-card {
+    min-width: 0;
+    min-height: 0;
+    height: 100%;
+    border: 1px solid var(--border-color);
+    border-radius: 18px;
+    background: var(--bg-card);
+}
+
+.motivation-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 24px 20px;
+    text-align: center;
+}
+
+.motivation-icon {
+    display: block;
+    width: 46px;
+    height: 46px;
+    margin-bottom: 16px;
+    fill: none; /* не закрашивать внутреннюю часть фигуры */
+    stroke: var(--accent-color); /* нарисовать контур */
+    stroke-width: 2.5;
+    stroke-linecap: round; /* сделать концы линий закруглёнными */
+    stroke-linejoin: round; /* закруглить места, где линии соединяются */
+}
+
+.motivation-card h2 {
+    max-width: 250px;
+    margin: 0;
+    color: var(--text-main);
+    font-size: 17px;
+    line-height: 1.5;
+}
+
+.motivation-card p {
+    margin: 8px 0 0;
+    color: var(--text-sub);
+    font-size: 14px;
+}
+
+.animated-line {
+    width: 80%;
+    height: 2px;
+    background: rgba(255, 255, 255, 0.05);
+    margin-top: 24px;
+    position: relative;
+    overflow: hidden;
+    border-radius: 2px;
+}
+
+.animated-line::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -50%;
+    width: 50%;
+    height: 100%;
+    background: linear-gradient(to right, transparent, var(--accent-color), transparent);
+    animation: loadingLine 2s infinite ease-in-out;
+}
+
+@keyframes loadingLine {
+    0% { left: -50%; }
+    100% {left: 100%; }
+}
+
+.mini-calendar,
+.upcoming-events {
+    background-color: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: 18px;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+/* маленький календарь */
+.mini-calendar {
+    min-height: 340px;
+    display: flex;
+    flex-direction: column;
+}
+
+.mini-calendar-grid {
+    flex: 1;
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    grid-template-rows: repeat(6, 1fr);
+    gap: 4px;
+    min-height: 220px;
+}
+
+/* ячейки маленького календаря */
+.mini-calendar-grid .day-cell {
+    aspect-ratio: 1; /* Задаёт соотношение ширины и высоты */
+    max-height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+    font-size: 13px;
+    color: var(--text-main);
+} 
+
+.mini-calendar-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+}
+
+.mini-calendar-header h3 {
+    margin: 0;
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--text-main);
+}
+
+.mini-nav-btn {
+    width: 32px;
+    height: 32px;
+    padding: 0;
+    background: transparent;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    color: var(--text-sub);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background 0.2s, color 0.2s;
+}
+
+.mini-nav-btn:hover {
+    background-color: var(--border-color);
+    color: var(--text-main);
+}
+
+.mini-calendar-weekdays {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    margin-bottom: 8px;
+}
+
+.mini-calendar-weekdays .weekday {
+    text-align: center;
+    color: var(--text-sub);
+    font-size: 12px;
+    font-weight: 600;
+    padding: 4px 0;
+}
+
+.mini-calendar-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 2px;
+}
+
+.mini-calendar-grid .day-cell:hover {
+    background: var(--border-color);
+}
+
+/* числа в клетках */
+.day-number {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text-main);
+}
+
+/* дни не текущего месяца серые */
+.calendar-grid .day-cell.other-month .day-number,
+.mini-calendar-grid .day-cell.other-month .day-number {
+    color: var(--text-sub);
+    opacity: 0.6;
+}
+
+/* сегодня - акцентная подсветка */
+.calendar-grid .day-cell.today .day-number {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 28px;
+    height: 28px;
+    padding: 0 6px;
+    border-radius: 8px;
+    background: var(--accent-color);
+    color: var(--text-main);
+}
+
+.mini-calendar-grid .day-cell.today .day-number {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: var(--accent-color);
+    color: var(--text-main);
+}
+
+/* mini: число по центру */
+.mini-calendar-grid .day-number {
+    font-size: 13px;
+}

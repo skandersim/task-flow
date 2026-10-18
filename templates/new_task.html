@@ -1,0 +1,356 @@
+{% extends 'base_app.html' %}
+
+{% block title %}Задачи | TaskFlow{% endblock %}
+
+{% block app_css %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='new_task.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='modal_overlay.css') }}">
+{% endblock %}
+
+{% block app_content %}
+    <div class="new_task_content">
+        <div class="new_task_header">
+            <h2>Мои задачи</h2>
+            <button type="button" class="new-task-btn">+ Новая задача</button>
+
+            <div class="new_task_subtitle">
+                <div class="search">
+                    <i data-lucide="search"></i>
+                    <input type="text" name="search" placeholder="Поиск задач...">
+                </div>
+
+                <div class="custom-select custom-select-filter">
+                    <input type="hidden" name="hobbies">
+                    <button type="button" class="custom-select-trigger">
+                        <i data-lucide="compass" class="trigger-icon"></i>
+                        <span class="custom-select-value">Все направления</span>
+                        <i data-lucide="chevron-down" class="trigger-arrow"></i>
+                    </button>
+                    <div class="custom-select-menu">
+                        <button type="button" class="status-option" data-value="">Все направления</button>
+                        <button type="button" class="status-option" data-value="work">Работа и проекты</button>
+                        <button type="button" class="status-option" data-value="study">Учёба и саморазвитие</button>
+                        <button type="button" class="status-option" data-value="sport">Спорт и здоровье</button>
+                        <button type="button" class="status-option" data-value="lifestyle">Повседневные дела</button>
+                    </div>
+                </div>
+
+                <div class="custom-select custom-select-filter">
+                    <input type="hidden" name="priority">
+                    <button type="button" class="custom-select-trigger">
+                        <i data-lucide="flag" class="trigger-icon"></i>
+                        <span class="custom-select-value">Все приоритеты</span>
+                        <i data-lucide="chevron-down" class="trigger-arrow"></i>
+                    </button>
+                    <div class="custom-select-menu">
+                        <button type="button" class="status-option" data-value="">Все приоритеты</button>
+                        <button type="button" class="status-option" data-value="high">Высокий</button>
+                        <button type="button" class="status-option" data-value="average">Средний</button>
+                        <button type="button" class="status-option" data-value="low">Низкий</button>
+                    </div>
+                </div>
+
+                <div class="custom-select custom-select-filter">
+                    <input type="hidden" name="status" value="">
+                    <button type="button" class="custom-select-trigger">
+                        <i data-lucide="circle-dot" class="trigger-icon"></i>
+                        <span class="custom-select-value">Все статусы</span>
+                        <i data-lucide="chevron-down" class="trigger-arrow"></i>
+                    </button>
+                    <div class="custom-select-menu">
+                        <button type="button" class="status-option" data-value="">Все статусы</button>
+                        <button type="button" class="status-option" data-value="not-started">Не начато</button>
+                        <button type="button" class="status-option" data-value="process">В процессе</button>
+                        <button type="button" class="status-option" data-value="done">Выполнено</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="tasks-wrapper">
+            <!-- шапка колонок -->
+            <div class="tasks-header-row">
+                <div></div>
+                <div>Задача</div>
+                <div>Категория</div>
+                <div>Приоритет</div>
+                <div>Срок</div>
+                <div>Статус</div>
+                <div></div>
+            </div>
+
+            <!-- список задач -->
+            <div class="tasks-container">
+                {% if tasks %}
+                    {% for task in tasks %}
+                        <div class="task-card prio-{{ task.priority or 'none' }}{% if task.status == 'done' %} is-done{% endif %}"
+                            data-task-item data-hobbies="{{ task.hobbies or '' }}" data-priority="{{ task.priority or '' }}">
+                            <!-- чекбокс -->
+                            <button type="button" class="task-toggle" data-task-id="{{ task.id }}" data-status="{{ task.status }}">
+                                <svg class="task-status-icon icon-circle prio-{{ task.priority or 'none' }}" viewBox="0 0 24 24">
+                                    <circle cx="12" cy="12" r="9"></circle>
+                                </svg>
+                                <svg class="task-status-icon icon-check" viewBox="0 0 24 24" fill="currentColor" stroke="none">
+                                    <circle cx="12" cy="12" r="9" fill="currentColor"></circle>
+                                    <path d="M8.5 12.2 10.8 14.5 15.5 9.5" stroke="#0b0d10" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"></path>
+                                </svg>
+                            </button>
+
+                            <!-- название -->
+                            <div class="task-title-block">
+                                <h3>{{ task.title }}</h3>
+                                {% if task.description %}
+                                    <p class="task-subtitle">{{ task.description }}</p>
+                                {% endif %}
+                            </div>
+
+                            <!-- категория -->
+                            <div class="hobbies">
+                                <p>
+                                    {% if task.hobbies == 'work' %}Работа и проекты
+                                    {% elif task.hobbies == 'study' %}Учёба и саморазвитие
+                                    {% elif task.hobbies == 'sport' %}Спорт и здоровье
+                                    {% elif task.hobbies == 'lifestyle' %}Повседневные дела
+                                    {% else %}{{ task.hobbies or '—' }}{% endif %}
+                                </p>
+                            </div>
+
+                            <!-- приоритет -->
+                            <div class="priority-badge {{ task.priority or 'none' }}">
+                                <p>
+                                    {% if task.priority == 'high' %}Высокий
+                                    {% elif task.priority == 'average' %}Средний
+                                    {% elif task.priority == 'low' %}Низкий
+                                    {% else %}—{% endif %}
+                                </p>
+                            </div>
+
+                            <!-- срок -->
+                            <div class="date">
+                                <p>{{ task.due_date or '—' }}</p>
+                                {% if task.due_time %}
+                                    <p class="task-subtitle">{{ task.due_time }}</p>
+                                {% endif %}
+                            </div>
+
+                            <!-- статус -->
+                            <div class="condition {{ task.status or 'not-started' }}" data-task-id="{{ task.id }}">
+                                <button type="button" class="condition-trigger">
+                                    <p>
+                                        {% if task.status == 'done' %}Выполнено
+                                        {% elif task.status == 'process' %}В процессе
+                                        {% else %}Не начато{% endif %}
+                                    </p>
+                                    <i data-lucide="chevron-down"></i>
+                                </button>
+                                <div class="status-menu">
+                                    <button type="button" class="status-option" data-value="not-started">Не начато</button>
+                                    <button type="button" class="status-option" data-value="process">В процессе</button>
+                                    <button type="button" class="status-option" data-value="done">Выполнено</button>
+                                </div>
+                            </div>
+
+                            <!-- кнопки -->
+                            <div class="editing">
+                                <button type="button" class="edit-btn" data-task-id="{{ task.id }}">
+                                    <i data-lucide="pencil"></i>
+                                </button>
+                                <button type="button" class="delete-btn" data-task-id="{{ task.id }}">
+                                    <i data-lucide="trash-2"></i>
+                                </button>
+                                <span class="done-check">
+                                    <i data-lucide="check"></i>
+                                </span>
+                            </div>
+                        </div>
+                    {% endfor %}
+                        <div id="no-filter-results" class="empty-tasks" hidden>
+                            <h3>Совпадений не найдено</h3>
+                            <p>Попробуй изменить запрос или фильтры</p>
+                        </div>
+                    {% else %}
+                        <div class="empty-tasks">
+                            <h3>Задач пока нет</h3>
+                            <p>Создай первую задачу, чтобы начать работу</p>
+                            <button type="button" class="new-task-btn">Добавить задачу</button>
+                        </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+    <!-- новая задача -->
+    <div class="modal-overlay {% if error %}active{% endif %}" id="taskModal">
+        <div class="modal-window">
+            <div class="modal-header">
+                <h3>Новая задача</h3>
+                <button type="button" class="close-btn">&times;</button>
+            </div>
+
+            <form method="POST" action="/tasks/new">
+                <div class="form-group">
+                    <label>Название</label>
+                    <div class="input-group">
+                        <span class="input-icon"><i data-lucide="file-text"></i></span>
+                        <input type="text" name="title" placeholder="Введите название задачи..." required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Комментраий</label>
+                    <div class="input-group">
+                        <span class="input-icon"><i data-lucide="message-square"></i></span>
+                        <input type="text" name="description" maxlength="50" placeholder="Введите комментрарий (не обязательно)">
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Срок выполнения</label>
+                        <div class="input-group">
+                            <span class="input-icon"><i data-lucide="calendar"></i></span>
+                            <input type="text" name="due_date" placeholder="01.09.2026">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Время</label>
+                        <div class="input-group">
+                            <span class="input-icon"><i data-lucide="clock"></i></span>
+                            <input type="text" name="due_time" placeholder="18:00">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Приоритет</label>
+                    <div class="custom-select">
+                        <input type="hidden" name="priority" required>
+                        <button type="button" class="custom-select-trigger">
+                            <i data-lucide="flag" class="trigger-icon"></i>
+                            <span class="custom-select-value">Выбрать...</span>
+                            <i data-lucide="chevron-down" class="trigger-arrow"></i>
+                        </button>
+                        <div class="custom-select-menu">
+                            <button type="button" class="status-option" data-value="high">Высокий</button>
+                            <button type="button" class="status-option" data-value="average">Средний</button>
+                            <button type="button" class="status-option" data-value="low">Низкий</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- категория -->
+                <div class="form-group">
+                    <label>Категория</label>
+                    <div class="custom-select">
+                        <input type="hidden" name="hobbies" required>
+                        <button type="button" class="custom-select-trigger">
+                            <i data-lucide="folder" class="trigger-icon"></i>
+                            <span class="custom-select-value">Выбрать...</span>
+                            <i data-lucide="chevron-down" class="trigger-arrow"></i>
+                        </button>
+                        <div class="custom-select-menu">
+                            <button type="button" class="status-option" data-value="work">Работа и проекты</button>
+                            <button type="button" class="status-option" data-value="study">Учёба и саморазвитие</button>
+                            <button type="button" class="status-option" data-value="sport">Спорт и здоровье</button>
+                            <button type="button" class="status-option" data-value="lifestyle">Повседневные дела</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- статус -->
+                <div class="form-group">
+                    <label>Статус</label>
+                    <div class="custom-select">
+                        <input type="hidden" name="status" value="" required>
+                        <button type="button" class="custom-select-trigger">
+                            <i data-lucide="circle-dot" class="trigger-icon"></i>
+                            <span class="custom-select-value">Выбрать...</span>
+                            <i data-lucide="chevron-down" class="trigger-arrow"></i>
+                        </button>
+                        <div class="custom-select-menu">
+                            <button type="button" class="status-option" data-value="not-started">Не начато</button>
+                            <button type="button" class="status-option" data-value="process">В процессе</button>
+                        </div>
+                    </div>
+                </div>
+
+                <p class="error-message client-validation-error" role="alert" hidden></p>
+                <button type="submit" class="btn-primary">Добавить задачу</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- редактирование -->
+    <div class="modal-overlay" id="editModal">
+        <div class="modal-window">
+            <div class="modal-header">
+                <h3>Редактирование задачи</h3>
+                <button type="button" class="close-btn">&times;</button>
+            </div>
+
+            <form method="POST" id="editTaskForm"> 
+                <div class="form-group">
+                    <label>Название</label>
+                    <div class="input-group">
+                        <span class="input-icon"><i data-lucide="file-text"></i></span>
+                        <input type="text" name="title" placeholder="Введите название задачи..." required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Срок выполнения</label>
+                    <div class="input-group">
+                        <span class="input-icon"><i data-lucide="calendar"></i></span>
+                        <input type="text" name="due_date" placeholder="Например, 01.09.2026">
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label>Приоритет</label>
+                    <div class="custom-select" id="editPrioritySelect">
+                        <input type="hidden" name="priority" required>
+                        <button type="button" class="custom-select-trigger">
+                            <i data-lucide="flag" class="trigger-icon"></i>
+                            <span class="custom-select-value">Выбрать...</span>
+                            <i data-lucide="chevron-down" class="trigger-arrow"></i>
+                        </button>
+                        <div class="custom-select-menu">
+                            <button type="button" class="status-option" data-value="high">Высокий</button>
+                            <button type="button" class="status-option" data-value="average">Средний</button>
+                            <button type="button" class="status-option" data-value="low">Низкий</button>
+                        </div>
+                    </div>
+                </div>
+
+                <p class="error-message client-validation-error" role="alert" hidden></p>
+                <button type="submit" class="btn-primary">Сохранить изменения</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- удаление задачи -->
+    <div class="modal-overlay" id="deleteModal">
+        <div class="modal-window delete-modal">
+            <div class="modal-header">
+                <h3>Удаление задачи</h3>
+                <button type="button" class="close-btn delete-close" aria-label="Закрыть">
+                    &times;
+                </button>
+            </div>
+
+            <p class="delete-text">Вы точно хотите удалить эту задачу?</p>
+
+            <div class="delete-buttons">
+                <button type="button" class="cancel-delete">Отмена</button>
+                <form method="POST" id="deleteForm" class="delete-form">
+                    <button type="submit" class="confirm-delete-btn">Удалить</button>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block app_js %}
+    <script src="{{ url_for('static', filename='javaScript/tasks.js') }}"></script>
+{% endblock %}

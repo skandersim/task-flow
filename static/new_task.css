@@ -1,0 +1,352 @@
+.new_task_content {
+    margin-left: 246px;
+    padding: 90px 32px 40px;
+    min-height: calc(100vh - 60px);
+    box-sizing: border-box;
+}
+
+/* шапка */
+.new_task_header {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+.new_task_header h2 {
+    margin: 0;
+    color: var(--text-main);
+    font-size: 27px;
+    font-weight: 750;
+}
+
+.new-task-btn {
+    height: 40px;
+    padding: 0 18px;
+    border: none;
+    border-radius: 9px;
+    background-color: var(--accent-color);
+    color: #ffffff;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.new-task-btn:hover {
+    background-color: var(--accent-hover);
+    box-shadow: 0 0 15px var(--accent-glow);
+}
+
+/* поиск и фильтры */
+.new_task_subtitle {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    width: 100%;
+    margin-top: 18px;
+    padding: 10px;
+    background-color: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: 10px;
+    box-sizing: border-box;
+}
+
+.search {
+    position: relative;
+    flex: 1;
+}
+
+.search svg {
+    position: absolute;
+    left: 14px;
+    top: 50%;
+    width: 18px;
+    height: 18px;
+    transform: translateY(-50%);
+    color: var(--text-sub);
+    pointer-events: none;
+}
+
+.search input {
+    width: 100%;
+    height: 44px;
+    padding: 0 14px 0 44px;
+    background-color: var(--bg-input);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    outline: none;
+    color: var(--text-main);
+    font-size: 14px;
+    box-sizing: border-box;
+    transition: border-color 0.2s;
+}
+
+.search input::placeholder {
+    color: var(--text-sub);
+}
+
+.search input:focus {
+    border-color: var(--accent-color);
+    box-shadow: 0 0 0 3px var(--accent-alpha);
+}
+
+/* фильтры  */
+.custom-select-filter {
+    width: 210px !important;
+    flex-shrink: 0;
+}
+
+.custom-select-filter .custom-select-trigger {
+    height: 44px !important; /* под высоту поиска */
+    padding: 0 10px 0 20px !important; 
+    background-color: var(--bg-input) !important;
+    border: 1px solid var(--border-color) !important;
+}
+
+.custom-select-filter .input-icon {
+    position: absolute;
+    left: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--text-sub);
+    pointer-events: none;
+}
+
+.custom-select-filter .custom-select-value {
+    padding: 0 !important;
+    color: var(--text-main) !important;
+}
+
+/* таблица задач */
+.tasks-wrapper {
+    margin-top: 16px;
+    background-color: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    overflow: visible;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+body .new_task_content .tasks-wrapper .tasks-header-row,
+body .new_task_content .tasks-wrapper .tasks-container .task-card {
+    display: grid !important;
+    grid-template-columns: 44px minmax(0, 1.35fr) minmax(0, 1.15fr) minmax(0, 0.85fr) minmax(0, 0.8fr) minmax(0, 0.95fr) 88px !important;
+    column-gap: 20px !important;
+    align-items: center !important;
+    padding: 0 22px !important;
+    box-sizing: border-box !important;
+    width: 100% !important;
+}
+
+body .new_task_content .tasks-wrapper .tasks-header-row > div,
+body .new_task_content .tasks-wrapper .tasks-container .task-card > * {
+    min-width: 0 !important;
+}
+
+.tasks-header-row {
+    height: 48px;
+    background-color: var(--bg-input);
+    border-bottom: 1px solid var(--border-color);
+    color: var(--text-sub);
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+}
+
+.tasks-container {
+    width: 100%;
+    min-height: 360px;
+    background-color: var(--bg-card);
+}
+
+.task-card {
+    position: relative;
+    min-height: 74px;
+    border-bottom: 1px solid var(--border-color);
+    transition: background-color 0.15s ease;
+}
+
+.task-card:last-child {
+    border-bottom: none;
+}
+
+.task-card:hover {
+    background-color: var(--bg-input); /* легкая подсветка при наведении */
+}
+
+/* цветная полоска слева */
+.task-card::before {
+    content: "";
+    position: absolute;
+    left: 0; top: 0; bottom: 0; width: 3px;
+    background-color: #52525b; /* дефолтный серый */
+}
+
+.task-card.prio-high::before    { background-color: #ef4444; }
+.task-card.prio-average::before { background-color: #f59e0b; }
+.task-card.prio-low::before     { background-color: #22c55e; }
+.task-card.is-done::before      { background-color: #22c55e; }
+
+/* чекбокс */
+.task-toggle {
+    display: flex; align-items: center; justify-content: center;
+    padding: 0; background: none; border: none; cursor: pointer;
+}
+
+.task-status-icon {
+    width: 26px; height: 26px; fill: none; stroke: currentColor;
+    stroke-width: 1.6; color: var(--text-sub);
+}
+
+.task-status-icon.icon-check { display: none; color: #22c55e; }
+.task-card.is-done .icon-circle { display: none; }
+.task-card.is-done .icon-check  { display: block; }
+.task-status-icon.prio-high    { color: #ef4444; }
+.task-status-icon.prio-average { color: #f59e0b; }
+.task-status-icon.prio-low     { color: #22c55e; }
+
+/* тексты в карточке */
+.task-title-block { display: flex; flex-direction: column; gap: 2px; }
+.task-title-block h3 { margin: 0; color: var(--text-main); font-size: 16px; font-weight: 500; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.task-subtitle { margin: 0; color: var(--text-sub); font-size: 13px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.task-card.is-done .task-title-block h3 { color: var(--text-sub); text-decoration: line-through; }
+.task-title-block p { font-size: 15px; }
+
+.hobbies p { margin: 0; color: var(--text-main); font-size: 14px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.date p { margin: 0; color: var(--text-sub); font-size: 14px; white-space: nowrap; }
+
+/* бейдж приоритета */
+.priority-badge { display: flex; align-items: center; }
+.priority-badge p {
+    margin: 0; padding: 6px 12px; border-radius: 7px;
+    font-size: 13px; font-weight: 500; white-space: nowrap; border: 1px solid transparent;
+}
+.priority-badge.high p { color: #ef4444; background-color: rgba(239, 68, 68, 0.08); border-color: rgba(239, 68, 68, 0.2); }
+.priority-badge.average p { color: #f59e0b; background-color: rgba(245, 158, 11, 0.08); border-color: rgba(245, 158, 11, 0.2); }
+.priority-badge.low p { color: #22c55e; background-color: rgba(34, 197, 94, 0.08); border-color: rgba(34, 197, 94, 0.2); }
+.priority-badge.none p { color: var(--text-sub); background-color: rgba(100, 100, 100, 0.05); border-color: var(--border-color); }
+
+/* статус */
+.condition { position: relative; border-radius: 7px; background-color: var(--bg-input); border: 1px solid var(--border-color); width: fit-content; }
+.condition-trigger { display: flex; align-items: center; justify-content: space-between; gap: 6px; width: 132px; padding: 7px 11px; background: none; border: none; cursor: pointer; color: inherit; font: inherit; box-sizing: border-box; }
+.condition-trigger p { margin: 0; color: var(--text-sub); font-size: 14px; white-space: nowrap; }
+.condition-trigger svg { width: 14px; height: 14px; color: var(--text-sub); flex-shrink: 0; }
+
+.condition.process { background-color: rgba(59, 130, 246, 0.08); border-color: rgba(59, 130, 246, 0.2); }
+.condition.process p { color: #3b82f6; }
+.condition.done { background-color: rgba(34, 197, 94, 0.08); border-color: rgba(34, 197, 94, 0.2); }
+.condition.done p { color: #22c55e; }
+
+/* кнопки действий (карандаш, корзина) */
+.editing { display: flex; align-items: center; justify-content: flex-end; gap: 4px; }
+.edit-btn, .delete-btn { display: flex; align-items: center; justify-content: center; width: 34px; height: 34px; color: var(--text-sub); border-radius: 6px; background: transparent; border: none; cursor: pointer; transition: color 0.15s ease, background-color 0.15s ease; }
+.edit-btn svg, .delete-btn svg { width: 18px; height: 18px; }
+.edit-btn:hover { color: var(--accent-color); background-color: var(--accent-alpha); }
+.delete-btn:hover { color: #ef4444; background-color: rgba(239, 68, 68, 0.08); }
+
+.task-card.is-done .edit-btn { display: none; }
+.done-check { display: none; align-items: center; justify-content: center; width: 34px; height: 34px; color: #22c55e; }
+.done-check svg { width: 18px; height: 18px; }
+.task-card.is-done .done-check { display: flex; }
+
+/* пустые задачи */
+.empty-tasks { min-height: 380px; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 40px 20px; }
+.empty-tasks h3 { margin: 0 0 8px; color: var(--text-main); font-size: 20px; }
+.empty-tasks p { margin: 0 0 20px; color: var(--text-sub); font-size: 14px; }
+
+/* модалка задач */
+.modal-window {
+    width: 100%; max-width: 440px; padding: 26px;
+    background-color: var(--bg-card); 
+    border: 1px solid var(--border-color);
+    border-radius: 16px; 
+    box-shadow: 0 25px 60px rgba(0, 0, 0, 0.6); 
+    box-sizing: border-box;
+}
+
+.modal-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 22px; }
+.modal-header h3 { margin: 0; color: var(--text-main); font-size: 20px; font-weight: 700; }
+.close-btn { background: none; border: none; color: var(--text-sub); font-size: 26px; line-height: 1; cursor: pointer; padding: 0; width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; border-radius: 6px; transition: color 0.15s ease, background-color 0.15s ease; }
+.close-btn:hover { color: var(--text-main); background-color: var(--bg-input); }
+
+.modal-window form { display: flex; flex-direction: column; gap: 16px; }
+
+.modal-window .btn-primary { 
+    height: 48px; 
+    margin-top: 8px; 
+    background-color: var(--accent-color); 
+    color: #ffffff; 
+    border: none; 
+    border-radius: 10px; 
+    font-size: 15px; 
+    font-weight: 600; 
+    cursor: pointer; 
+    transition: background-color 0.2s ease; 
+}
+.modal-window .btn-primary:hover { background-color: var(--accent-hover); }
+
+/* меню скрыто по умолчанию */
+.status-menu {
+    display: none;
+    position: absolute;
+    top: calc(100% + 4px);
+    left: 0;
+    width: 100%;
+    padding: 6px;
+    background-color: var(--bg-card) !important;
+    border: 1px solid var(--border-color) !important;
+    border-radius: 10px;
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4);
+    z-index: 100;
+    box-sizing: border-box;
+}
+
+.condition.open .status-menu {
+    display: flex !important;
+    flex-direction: column;
+    gap: 2px;
+}
+
+/* пункты меню  */
+.status-menu .status-option {
+    display: block !important;
+    width: 100% !important;
+    text-align: left !important;
+    padding: 8px 10px !important;
+    background: transparent !important;
+    border: none !important;
+    border-radius: 6px !important;
+    color: var(--text-main) !important;
+    font-size: 13px !important;
+    cursor: pointer;
+    box-sizing: border-box;
+    transition: background-color 0.15s ease;
+}
+
+/* ховер на пункт меню */
+.status-menu .status-option:hover {
+    background-color: var(--border-color) !important;
+    color: var(--accent-color) !important;
+}
+
+body .new_task_content .tasks-wrapper .tasks-container .task-card[hidden] {
+    display: none !important;
+}
+
+#no-filter-results[hidden] {
+    display: none !important;
+}
+
+.modal-overlay .modal-window input:focus,
+.modal-overlay .modal-window select:focus,
+.modal-overlay .modal-window .custom-select-trigger:focus,
+.modal-overlay .modal-window .custom-select-trigger:focus-visible {
+    outline: none !important;
+    border-color: var(--accent-color) !important;
+    box-shadow: 0 0 0 3px var(--accent-alpha) !important;
+}

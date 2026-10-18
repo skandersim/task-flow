@@ -1,0 +1,180 @@
+{% extends 'base.html' %}
+
+{% block title %}TaskFlow — Ваша продуктивность{% endblock %}
+
+{% block main_content %}
+<section class="hero">
+    <div class="hero-content">
+        <div class="badge">
+            <p>Ваши задачи. Ваш успех.</p>
+        </div>
+
+        <h1 class="hero-title">
+            Планируйте задачи.<br>
+            <span class="highlight">Достигайте целей.</span>
+        </h1>
+
+        <p class="hero-description">
+            TaskFlow помогает вам организовать дела, расставлять приоритеты
+            и контролировать дедлайны — всё в одном удобном приложении.
+        </p>
+
+        <div class="hero-buttons">
+            <a href="/register" class="btn btn-primary btn-large">Регистрация</a>
+            <a href="/entrance" class="btn btn-outline btn-large">Войти</a>
+        </div>
+
+    </div>
+
+    <div class="hero-image">
+        <div class="hero-preview-frame">
+            <img src="{{ url_for('static', filename='images/dashboard-preview.png') }}"
+                alt="Главная страница приложения TaskFlow">
+        </div>
+    </div>
+</section>
+
+<section class="features">
+    <h2 class="section-title">Почему выбирают <span class="highlight">TaskFlow</span>?</h2>
+
+    <div class="features-grid">
+        <div class="feature-card">
+            <i data-lucide="check-circle-2"></i>
+            <h3>Удобство</h3>
+            <p>Интуитивный интерфейс помогает быстро добавлять и управлять задачами.</p>
+        </div>
+
+        <div class="feature-card">
+            <i data-lucide="layers"></i>
+            <h3>Организация</h3>
+            <p>Категории, приоритеты и фильтры помогают держать всё под контролем.</p>
+        </div>
+
+        <div class="feature-card">
+            <i data-lucide="trending-up"></i>
+            <h3>Продуктивность</h3>
+            <p>Следите за прогрессом, анализируйте результаты и достигайте большего.</p>
+        </div>
+
+        <div class="feature-card">
+            <i data-lucide="lock"></i>
+            <h3>Безопасность</h3>
+            <p>Ваши данные надёжно защищены. Мы заботимся о вашей конфиденциальности.</p>
+        </div>
+    </div>
+</section>
+
+<section class="details reveal">
+    <h2 class="details-title reveal">Продумано до мелочей</h2>
+    <div class="details-grid reveal">
+        <div class="feature-more reveal">
+            <h3>Удобство</h3>
+            <p>Интуитивный интерфейс с поддержкой светлой и тёмной темы.
+                Быстрое создание задач, настраиваемые цвета карточек и умный
+                поиск помогут мгновенно находить нужное и
+                сразу переходить к делу без лишних действий.
+            </p>
+        </div>
+        <div class="feature-more reveal">
+            <h3>Организация</h3>
+            <p>Распределяйте дела по готовым категориям («Учёба», «Работа», «Спорт», «Личное»),
+                задавайте приоритеты и устанавливайте точные дедлайны.
+                Удобные фильтры по статусу и срокам помогут держать все
+                проекты под полным контролем.
+            </p>
+        </div>
+
+        <div class="feature-more reveal">
+            <h3>Продуктивность</h3>
+            <p>Наглядный личный кабинет и детальная страница статистики.
+                Отслеживайте процент выполненных задач, анализируйте
+                количество активных и просроченных дел, чтобы объективно
+                оценивать свой прогресс.</p>
+        </div>
+
+        <div class="feature-more reveal">
+            <h3>Безопасность</h3>
+            <p>Надежная база данных SQLite, безопасная регистрация с
+                хешированием паролей и персональный доступ к аккаунту.
+                Ваши личные планы, списки дел и настройки профиля находятся
+                под надежной защитой.
+            </p>
+        </div>
+    </div>
+</section>
+
+<section class="taskflow-about reveal" id="about-taskflow">
+    <div class="taskflow-about__header reveal">
+        <span class="taskflow-about__eyebrow">О проекте</span>
+
+        <h2 class="taskflow-about__title">
+            Что такое <span>TaskFlow?</span>
+        </h2>
+
+        <p class="taskflow-about__lead reveal">
+            TaskFlow - личный планировщик, который помогает собрать задачи,
+            сроки и прогресс в одном месте. Планируй дела, расставляй приоритеты
+            и постепенно двигайся к своим целям.
+        </p>
+    </div>
+
+    <div class="taskflow-about__grid">
+        <article class="taskflow-about__card reveal">
+            <span class="taskflow-about__number">01</span>
+            <div>
+                <h3>Задачи и приоритеты</h3>
+                <p>
+                    Добавляй задачи, указывай сроки, категории и приоритеты -
+                    так проще понять, за что взяться сначала.
+                </p>
+            </div>
+        </article>
+
+        <article class="taskflow-about__card reveal">
+            <span class="taskflow-about__number">02</span>
+            <div>
+                <h3>Календарь</h3>
+                <p>
+                    Планируй дела по датам и заранее смотри, какие задачи
+                    предстоит выполнить.
+                </p>
+            </div>
+        </article>
+
+        <article class="taskflow-about__card reveal">
+            <span class="taskflow-about__number">03</span>
+            <div>
+                <h3>Видимый прогресс</h3>
+                <p>
+                    Отмечай выполненное, следи за статистикой, ежедневной
+                    целью и своим уровнем.
+                </p>
+            </div>
+        </article>
+
+        <article class="taskflow-about__card reveal">
+            <span class="taskflow-about__number">04</span>
+            <div>
+                <h3>Кому подойдёт</h3>
+                <p>
+                    Школьникам, студентам и всем, кто хочет держать в порядке
+                    личные дела или небольшие проекты.
+                </p>
+            </div>
+        </article>
+    </div>
+
+    <div class="taskflow-about__note">
+        <p>
+            <span class="taskflow-about__version reveal">Версия 1.0</span>
+            Интерфейс пока рассчитан на компьютеры. Мобильная адаптация -
+            в планах.
+        </p>
+
+        <p class="taskflow-about__project-note reveal">
+            TaskFlow - учебный проект, который постепенно развивается
+            и получает новые возможности.
+        </p>
+    </div>
+</section>
+{% endblock %}

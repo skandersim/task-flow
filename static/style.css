@@ -1,0 +1,1056 @@
+:root {
+    --bg-page: #040405;
+    --bg-card: #0b0d10;
+    --bg-input: #18181c;
+    --text-main: #ffffff;
+    --text-sub: #9ca3af;
+
+    --accent-color: #f59e0b; /* основной цвет */
+    --accent-hover: #d97706; /* цвет при наведении */
+    --accent-alpha: rgba(245, 158, 11, 0.15); /* полупрозрачный для рамок */
+    --accent-glow: rgba(245, 158, 11, 0.35); /* для неона и свечения */
+
+    /* рамка карточек связывается с акцентом */
+    --border-color: var(--accent-alpha);
+}
+
+/* светлая тема */
+body.light-theme {
+    --bg-page: #f1f5f9;
+    --bg-card: #ffffff;
+    --bg-input: #f8fafc;
+    --text-main: #0f172a;
+    --text-sub: #64748b;
+    --border-color: var(--accent-alpha); 
+}
+
+/* применяем переменную фона к самому body */
+body {
+    background-color: var(--bg-page);
+    color: var(--text-main);
+    transition: background-color 0.3s ease, color 0.3s ease; /* плавная смена темы */
+}
+
+* {
+    margin: 0; /* сбрасываем дефолтные внешние отступы */
+    padding: 0; /* сбрасываем дефолтные внутренние отступы */
+    box-sizing: border-box; /* учитываем рамки и паддинги в размерах */
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; /* ставим современный шрифт без засечек */
+}
+
+body {
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+}
+
+/* главный контейнер всей страницы */
+body.landing-page {
+    margin: 0;
+    min-height: 100vh;
+    background-color: var(--bg-page); 
+    color: var(--text-main);
+    overflow-x: hidden;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+}
+
+/* отключаем оранжевые светящиеся пятна на фоне для светлой темы*/
+body.light-theme::before,
+body.light-theme::after {
+    opacity: 0;
+}
+
+.navbar {
+    position: sticky; 
+    top: 0; /* приклеивает шапку к верху при достижении  0 пикселей */
+    z-index: 100; /*вытаскивает шапку на верхний слой, чтобы контент проплывал под ней */
+    background-color: var(--bg-card); /* первые 3 числа - цвет (RGB), последнее (0.8) - 80% плотности и 20% прозрачности */
+    backdrop-filter: blur(12px); /* эффект матового стекла: размывает контент, который проплывает ПОД шапкой */
+    -webkit-backdrop-filter: blur(12px); /* дубликат для поддержки Safari */
+    height: 72px; /* фиксированная высота верхней панели */
+    display: flex; /* располагаем элементы в ряд */
+    justify-content: space-between; /* раскидываем лого влево, кнопки вправо */
+    align-items: center; /* выравниваем по центру по высоте */
+    padding: 0 40px; /* отступы слева и справа */
+    border-bottom: 1px solid var(--border-color); /* тонкая полоса снизу */
+}
+
+.logo {
+    display: flex; /* выравниваем иконку и текст в ряд */
+    align-items: center; /* центрируем по высоте */
+    gap: 10px; /* расстояние между иконкой и текстом */
+    text-decoration: none; /* убираем подчеркивание браузера */
+    color: var(--text-main);
+}
+
+.logo h2 {
+    margin: 0; /* сбрасываем стандартные отступы */
+    font-size: 22px; /* размер текста логотипа */
+    font-weight: 700; /* жирный шрифт логотипа */
+}
+
+.logo svg {
+    background-color: var(--accent-color); /* фон плашки */
+    color: var(--text-main); /* белый цвет галочки */
+    padding: 6px; /* внутренний отступ плашки */
+    border-radius: 8px; /* скругляем углы квадратика */
+    width: 32px; /* ширина иконки */
+    height: 32px; /* высота иконки */
+}
+
+.logo-highlight {
+    color: var(--accent-color);
+}
+
+.btn {
+    text-decoration: none; /* убираем подчеркивание */
+    padding: 12px 24px; /* размер кнопки */
+    border-radius: 10px; /* закругляем края */
+    display: inline-flex; /* правильное расположение содержимого */
+    align-items: center; /* центрируем текст по вертикали */
+    justify-content: center; /* центрируем текст по горизонтали */
+    cursor: pointer; /* курсор-палец при наведении */
+    transition: 0.2s; /* плавный переход */
+    font-size: 15px; /* размер текста кнопки */
+    font-weight: 600; /* полужирный шрифт */
+}
+
+.btn-primary {
+    background-color: var(--accent-color); 
+    color: var(--text-main); /* белый цвет текста */
+    border: none; /* убираем рамку */
+}
+
+.btn-primary:hover {
+    background-color: var(--accent-hover); 
+    box-shadow: 0 0 15px rgba(217, 119, 6, 0.4);
+}
+
+.btn-outline {
+    background-color: transparent; /* прозрачная кнопка */
+    color: var(--text-main); /* белый цвет текста */
+    border: 1px solid var(--border-color); /* тонкая рамка */
+}
+
+.btn-outline:hover {
+    background-color: var(--border-color); /* подсветка фона */
+    border-color: var(--accent-color); 
+}
+
+.hero {
+    display: grid;
+    grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
+    align-items: center;
+    gap: clamp(32px, 4vw, 64px);
+    padding: 120px clamp(32px, 8vw, 128px) 60px;
+    transform: translate(30px, -30px);
+}
+
+
+.hero-content {
+    margin-top: 20px;
+    width: 100%;
+    max-width: 620px;
+    transform: translateY(-30px);
+}
+
+.hero-image {
+    margin-right: 55px;
+    min-width: 0;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.hero-preview-frame {
+    width: 100%;
+    max-width: 760px;
+    padding: 8px;
+    overflow: hidden;
+    border: 1px solid var(--border-color);
+    border-radius: 20px;
+    background: var(--bg-card);
+    box-shadow: 0 18px 48px var(--accent-alpha);
+    transform: perspective(1400px) rotateY(-4deg);
+}
+
+.hero-image img {
+    display: block;
+    width: 100%;
+    max-width: 900px;
+    height: auto;
+    border-radius: 13px;
+}
+
+.badge {
+    display: inline-block; /* рамочка обтягивает текст */
+    padding: 8px 18px; /* внутренние отступы плашки */
+    border-radius: 20px; /* закругляем углы */
+    border: 1px solid var(--border-color); 
+    background-color: var(--border-color);
+    color: var(--text-main); /* цвет текста */
+    margin-top: 0; /* убираем лишний верхний отступ */
+    margin-bottom: 24px; /* отступ до заголовка */
+    font-size: 14px; /* размер шрифта */
+    font-weight: 500; /* средняя жирность */
+}
+
+.hero-title {
+    font-size: 52px; /* крупный заголовок */
+    font-weight: 800; /* максимально жирный шрифт */
+    line-height: 1.08; /* межстрочный интервал */
+    margin-top: 0; /* сбрасываем верхний отступ */
+    margin-bottom: 20px; /* отступ до описания */
+    letter-spacing: -1px; /* немного уменьшаем расстояние между буквами */
+}
+
+.taskflow-about {
+    box-sizing: border-box;
+    width: calc(100% - 48px);
+    max-width: 1310px;
+    margin: 48px auto;
+    padding: clamp(28px, 4vw, 48px);
+    color: var(--text-main, #f5f5f7);
+    background: var(--bg-card, #0d0d12);
+    border: 1px solid var(--border-color, rgba(255, 255, 255, 0.08));
+    border-radius: 30px;
+}
+
+.taskflow-about__header {
+    max-width: 760px;
+    margin: 0 auto 32px;
+    text-align: center;
+}
+
+.taskflow-about__eyebrow {
+    display: inline-block;
+    margin-bottom: 12px;
+    padding: 7px 14px;
+    color: var(--accent-color, #ec4899);
+    background: var(--accent-alpha, rgba(236, 72, 153, 0.12));
+    border: 1px solid var(--border-color, rgba(255, 255, 255, 0.08));
+    border-radius: 999px;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.taskflow-about__title {
+    margin: 0 0 14px;
+    color: var(--text-main, #f5f5f7);
+    font-size: clamp(28px, 3vw, 38px);
+    font-weight: 800;
+    line-height: 1.15;
+}
+
+.taskflow-about__title span {
+    color: var(--accent-color, #ec4899);
+}
+
+.taskflow-about__lead {
+    margin: 0;
+    color: var(--text-sub, #a1a1aa);
+    font-size: 16px;
+    line-height: 1.7;
+}
+
+.taskflow-about__grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 16px;
+}
+
+.taskflow-about__card {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    padding: 22px;
+    background: var(--bg-input, rgba(0, 0, 0, 0.16));
+    border: 1px solid var(--border-color, rgba(255, 255, 255, 0.08));
+    border-radius: 20px;
+}
+
+.taskflow-about__number {
+    display: grid;
+    flex: 0 0 44px;
+    width: 44px;
+    height: 44px;
+    place-items: center;
+    color: var(--accent-color, #ec4899);
+    background: var(--accent-alpha, rgba(236, 72, 153, 0.12));
+    border: 1px solid var(--border-color, rgba(255, 255, 255, 0.08));
+    border-radius: 14px;
+    font-size: 13px;
+    font-weight: 700;
+}
+
+.taskflow-about__card h3 {
+    margin: 1px 0 7px;
+    color: var(--text-main, #f5f5f7);
+    font-size: 17px;
+    font-weight: 700;
+}
+
+.taskflow-about__card p {
+    margin: 0;
+    color: var(--text-sub, #a1a1aa);
+    font-size: 14px;
+    line-height: 1.65;
+}
+
+.taskflow-about__note {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 18px;
+    margin-top: 18px;
+    padding: 18px 22px;
+
+    background: var(--bg-input, rgba(0, 0, 0, 0.16));
+    border: 1px solid var(--border-color, rgba(255, 255, 255, 0.08));
+    border-radius: 18px;
+}
+
+.taskflow-about__note p {
+    margin: 0;
+    color: var(--text-sub, #a1a1aa);
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+.taskflow-about__version {
+    display: inline-block;
+    margin-right: 8px;
+    padding: 4px 9px;
+
+    color: var(--accent-color, #ec4899);
+    background: var(--accent-alpha, rgba(236, 72, 153, 0.12));
+    border-radius: 999px;
+
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.taskflow-about {
+    max-width: 1600px;
+    padding: clamp(36px, 4vw, 56px);
+}
+
+.taskflow-about__header {
+    max-width: 900px;
+    margin-bottom: 38px;
+}
+
+.taskflow-about__title {
+    font-size: clamp(36px, 3vw, 46px);
+}
+
+.taskflow-about__lead {
+    font-size: 18px;
+    line-height: 1.75;
+}
+
+.taskflow-about__grid {
+    gap: 20px;
+}
+
+.taskflow-about__card {
+    min-height: 140px;
+    gap: 18px;
+    padding: 26px;
+}
+
+.taskflow-about__number {
+    flex-basis: 48px;
+    width: 48px;
+    height: 48px;
+}
+
+.taskflow-about__card h3 {
+    font-size: 20px;
+}
+
+.taskflow-about__card p,
+.taskflow-about__note p {
+    font-size: 16px;
+    line-height: 1.7;
+}
+
+.taskflow-about__note {
+    gap: 24px;
+    padding: 22px 26px;
+}
+
+.highlight {
+    color: var(--accent-color); 
+    display: inline; /* держим в строке по умолчанию */
+}
+
+.hero-title .highlight-block,
+.hero-title span.highlight {
+    display: block; 
+    color: var(--accent-color);
+}
+
+.hero-description {
+    font-size: 16px; /* размер текста описания */
+    color: var(--text-sub); /* серый цвет текста */
+    max-width: 500px; /* ширина текста */
+    line-height: 1.6; /* удобный интервал */
+    margin-bottom: 30px; /* отступ от кнопок */
+}
+
+.hero-buttons {
+    display: flex; /* располагаем кнопки в ряд */
+    align-items: center; /* выравниваем кнопки по центру */
+    gap: 12px; /* расстояние между кнопками */
+    margin-bottom: 30px; /* отступ до рейтинга */
+}
+
+.hero-buttons .btn {
+    width: 230px; /* ширина кнопок */
+    height: 56px; /* высота кнопок */
+    font-size: 16px; /* размер текста */
+}
+
+.features {
+    padding: 45px 60px 50px; /* внутренние отступы плашки */
+    background-color: var(--bg-card); /* непрозрачный плашки */
+    border: 1px solid var(--border-color); /* тонкая рамка */; 
+    text-align: center; /* центрируем заголовок */
+    display: flex; /* включаем флекс для центрирования содержимого */
+    flex-direction: column; /* выстраиваем заголовок и сетку сверху вниз */
+    justify-content: center; /* ровно распределяем контент по высоте плашки */
+    border-radius: 32px; /* закругляем поля */
+    max-width: 1400px; /* задаем максимальную ширину */
+    margin: 0 auto 60px; /* наружние отступы */
+    max-width: 1600px;
+}
+
+.features h2 {
+    font-size: 34px; /* увеличиваем размер заголовка */
+    font-weight: 700; /* жирность заголовка */
+    margin-bottom: 45px; /* увеличиваем отступ до карточек */
+}
+
+.features-grid {
+    display: grid; /* включаем сетку */
+    grid-template-columns: repeat(4, 1fr); /* 4 равные колонки в ряд */
+    gap: 48px; /* увеличиваем расстояние между карточками для растяжения */
+    margin: 0 auto; /* центрируем сетку */
+    width: 100%; /* растягиваем во всю ширину */
+    max-width: 1600px; /* сильно увеличиваем максимальную ширину сетки */
+}
+
+.feature-card {
+    background-color: transparent; /* карточки остаются без отдельного фона */
+    border: none; /* убираем обводку */
+    padding: 0; /* сбрасываем отступы */
+    text-align: left; /* выравнивание текста по левому краю */
+    display: grid; /* сетка для размещения иконки слева, а текста справа */
+    grid-template-columns: 80px 1fr; /* увеличиваем место под большую плашку иконки */
+    column-gap: 20px; /* расстояние между иконкой и текстом */
+    align-items: start; /* прижимаем к верху */
+}
+
+.feature-card svg {
+    grid-column: 1; /* иконка идет в первую колонку */
+    grid-row: 1 / span 2; /* иконка занимает две строки по высоте */
+    background-color: var(--bg-card); /* непрозрачный фон */
+    border: 1px solid var(--border-color); /* тонкая рамка */
+    border-radius: 14px; /* слегка сглаживаем углы квадрата */
+    color: var(--accent-color); /* иконка */
+    width: 40px; /* увеличиваем размер самой иконки */
+    height: 40px; /* увеличиваем размер самой иконки */
+    padding: 16px; /* делаем квадратную плашку еще крупнее */
+    box-sizing: content-box; /* сохраняем размер самой иконки */
+}
+
+.feature-card h3 {
+    grid-column: 2; /* заголовок во второй колонке */
+    grid-row: 1; /* первая строка */
+    font-size: 20px; /* увеличиваем заголовок карточки */
+    font-weight: 700; /* жирный шрифт */
+    margin-bottom: 8px; /* отступ до описания */
+    color: var(--text-main); /* белый цвет текста */
+}
+
+.feature-card p {
+    grid-column: 2; /* описание во второй колонке */
+    grid-row: 2; /* вторая строка */
+    color: var(--text-sub); /* серый цвет текста */
+    font-size: 15px; /* увеличиваем размер шрифта описания */
+    line-height: 1.55; /* межстрочный интервал */
+}
+
+.details {
+    width: 100%; /* задаем ширину */
+    margin: 0 auto; /* зажимаем контейнер по центру страницы */
+    max-width: 1600px; /* задаем максимальную ширину */
+    padding: 48px 32px 60px; /* внутренние отступы */
+    border-radius: 28px; /* скругляем края */
+    background-color: var(--bg-card); /* делаем фон */
+    border: 1px solid var(--border-color); /* тонкая рамка */
+    display: flex; /* подключаем флекс */
+    flex-direction: column; /* выстраиваем элементы в колонку */
+    gap: 40px; /* расстояние между заголовком и сеткой */
+}
+
+.details-title {
+    font-size: 40px; /* размер текста */
+    font-weight: 700; /* жирность текста */
+    text-align: center; /* выравниваем по центру */
+}
+
+/* oбёртка для карточек, которая делит их на 2 колонки */
+.details-grid {
+    display: grid; /* подключаем гриды */
+    grid-template-columns: 1fr 1fr; /* ровно 2 равные колонки */
+    gap: 20px; /* расстояние между карточками */
+}
+
+/* cами карточки */
+.feature-more {
+    background-color: var(--bg-card); /* фон карточки */
+    padding: 28px 32px; /* внутренние отступы */
+    border-radius: 20px; /* закругляем края */
+    border: 1px solid var(--border-color); /* делаем рамку */
+    transition: transform 0.2s, border-color 0.2s; /* плавный эффект при наведении */
+}
+
+.feature-more h3 {
+    color: var(--accent-color);
+    font-size: 20px; /* размер заголовка */
+    margin-bottom: 12px; /* отступ снизу */
+}
+
+.feature-more p {
+    font-size: 16px; /* размер шрифта */
+    font-weight: 400; /* жирность шрифта */
+    line-height: 1.6; /* увеличиваем межстрочный интервал */
+    color: var(--text-sub); /* мягкий светло-серый цвет */
+}
+
+/* начальное состояние: элемент прозрачный и сдвинут вниз на 40px */
+.reveal {
+    opacity: 0; /* устанавливает прозрачность на 0 */
+    transform: translateY(40px); /* сдвигает элемент на 40 пикселей по оси Y относительно его начального положения */
+    transition: opacity 0.8s ease, transform 0.8s ease; /* показывает браузеру если у этого элемента изменятся 
+    свойства opacity или transform, не меняй их мгновенно, а сделай плавный переход за 0.8 секунды функция ease
+    делает старт и конец анимации чуть более мягкими */
+}
+
+/* класс, который добавит js при скролле */
+.reveal.active {
+    opacity: 1; /* возвращает прозрачность на 100 */
+    transform: translateY(0); /* возвращает элемент в его исходную точку (снимает сдвиг 40px) */
+}
+
+.error-message {
+    color: #e74c3c;
+    font-size: 14px;
+    margin-bottom: 15px;
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover, 
+input:-webkit-autofill:focus,
+textarea:-webkit-autofill {
+    -webkit-text-fill-color: var(--text-main) !important;
+    -webkit-box-shadow: 0 0 0px 1000px var(--bg-input) inset !important;
+    transition: background-color 5000s ease-in-out 0s;
+}
+
+.nav-buttons {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.nav-avatar-link {
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+}
+
+.nav-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 1.5px solid var(--border-color);
+    background: var(--bg-input);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    color: var(--accent-color);
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.nav-avatar:hover {
+    border-color: var(--accent-hover);
+    box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.12);
+}
+
+.nav-avatar svg {
+    width: 20px;
+    height: 20px;
+}
+
+.nav-avatar-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.sidebar {
+    position: fixed;
+    top: 72px;
+    left: 0;
+    bottom: 0;
+    width: 246px;
+    padding: 25px 16px;
+    background-color: var(--bg-card);
+    border-right: 1px solid var(--border-color);
+    z-index: 900;
+}
+
+.sidebar-item {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    height: 49px;
+    padding: 0 18px;
+    margin-bottom: 5px;
+    color: #a1a1aa;
+    border-radius: 9px;
+    text-decoration: none;
+    font-size: 15px;
+    font-weight: 500;
+    transition: all 0.2s ease;
+}
+
+.sidebar-item svg {
+    width: 20px;
+    height: 20px;
+    flex-shrink: 0;
+}
+
+.sidebar-item:hover {
+    color: var(--text-main);
+    background-color: var(--border-color);
+}
+
+.sidebar-item.active {
+    color: var(--text-main); /* цвет текста*/
+    background-color: var(--border-color); /* цвет фона */
+}
+
+.sidebar-item.active::before {
+    content: ""; /* пустое место для текста */
+    position: absolute; /* абсолютная позиция */
+    left: 0; /* выравнивает элемент слева */
+    top: 8px; /* смещаем вниз */
+    bottom: 8px; /* смещаем вверх */
+    width: 2px; /*ширина */
+    background-color: var(--accent-color); /* цвет фона */
+    border-radius: 0 3px 3px 0; /* закругление краёв */
+}
+ 
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(0, 0, 0, 0.7);
+    z-index: 1000;
+}
+
+.modal-overlay.active {
+    display: flex;
+}
+
+/* карточка модалки выхода */
+.logout-modal {
+    position: relative; /* чтобы крестик привязался к правому углу */
+    width: 100%;
+    max-width: 400px;
+    padding: 32px 28px 28px; /* увеличили внутренние отступы */
+    text-align: center; /* центрируем весь текст */
+    box-sizing: border-box;
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: 16px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6);
+}
+
+/* крестик в правом верхнем углу */
+.logout-close {
+    position: absolute !important; 
+    top: 20px !important;
+    left: 5px !important;
+    width: 32px !important;
+    height: 32px !important;
+    background: transparent;
+    border: none !important;
+    color: var(--text-sub) !important;
+    font-size: 30px !important;
+    cursor: pointer !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    border-radius: 6px !important;
+}
+
+.logout-close:hover {
+    color: var(--text-main);
+    background: rgba(255, 255, 255, 0.08);
+}
+
+/* заголовок " */
+.logout-title {
+    margin: 0 0 12px 0; /* Отступ до подзаголовка */
+    color: var(--text-main);
+    font-size: 22px;
+    font-weight: 700;
+    text-align: center;
+}
+
+/* подзаголовок */
+.logout-text {
+    margin: 0 0 28px 0; /* yвеличенный отступ до кнопок, чтобы не было зажато */
+    color: var(--text-sub);
+    font-size: 15px;
+    line-height: 1.5;
+    text-align: center;
+}
+
+/* сетка кнопок 50 / 50 */
+.logout-buttons {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    width: 100%;
+}
+
+.logout-form {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+.cancel-logout,
+.confirm-logout-btn {
+    width: 100%;
+    height: 44px;
+    border-radius: 10px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.cancel-logout {
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    background: #1c1c22;
+    color: #e5e7eb;
+}
+
+.cancel-logout:hover {
+    background: #25252d;
+}
+
+.confirm-logout-btn {
+    border: none;
+    background: #dc2626;
+    color: var(--text-main);
+}
+
+.confirm-logout-btn:hover {
+    background: #b91c1c;
+    box-shadow: 0 0 14px rgba(220, 38, 38, 0.35);
+}
+
+/* Общая обертка для текстовых полей */
+.input-group {
+    position: relative;
+    display: flex;
+    align-items: center;
+    width: 100%;
+}
+
+/* Иконки слева (для инпутов и селектов) */
+.input-icon,
+.trigger-icon {
+    position: absolute;
+    left: 14px;
+    color: var(--text-sub);
+    display: flex;
+    align-items: center;
+    pointer-events: none;
+    z-index: 2;
+}
+
+.input-icon svg,
+.trigger-icon {
+    width: 18px !important;
+    height: 18px !important;
+}
+
+/* Иконка в textarea (прибита к верху) */
+.textarea-icon {
+    top: 14px;
+}
+
+/* Сами поля ввода и кнопка селекта */
+.input-group input,
+.input-group textarea,
+.custom-select-trigger {
+    width: 100%;
+    background: var(--bg-input) !important;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    color: var(--text-main);
+    font-size: 14px;
+    box-sizing: border-box;
+    transition: all 0.2s ease;
+    outline: none;
+}
+
+/* Высота и отступы (текст начинается в 42px от левого края) */
+.input-group input,
+.custom-select-trigger {
+    height: 48px;
+    padding: 0 14px 0 42px;
+}
+
+.input-group textarea {
+    height: 120px;
+    padding: 14px 14px 14px 42px;
+    resize: none;
+}
+
+/* Фокус (золотая рамка) */
+.input-group input:focus,
+.input-group textarea:focus,
+.custom-select.open .custom-select-trigger {
+    border-color: #f59e0b;
+    box-shadow: 0 0 0 3px var(--border-color);
+}
+
+/* Плейсхолдеры и серый текст в селектах */
+.input-group input::placeholder,
+.input-group textarea::placeholder,
+.custom-select-value {
+    color: var(--text-sub);
+}
+
+.custom-select-value.is-selected {
+    color: var(--text-main);
+}
+
+.custom-select {
+    position: relative;
+    width: 100%;
+}
+
+.custom-select-trigger {
+    width: 100%;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 0 14px;
+    background: var(--bg-input); 
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    color: var(--text-sub);
+    cursor: pointer;
+    box-sizing: border-box;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+
+}
+
+.custom-select-value {
+    flex: 1;
+    min-width: 0;
+    margin-left: 25px;
+    text-align: left;
+    font-size: 14px;
+    color: var(--text-sub);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* cтрелочка справа */
+.trigger-arrow {
+    width: 18px;
+    height: 18px;
+    color: var(--text-sub);
+    transition: transform 0.2s ease;
+    flex-shrink: 0;
+    margin-left: auto;
+}
+
+.custom-select.open .trigger-arrow {
+    transform: rotate(180deg);
+}
+
+/* выпадающее меню */
+.custom-select-menu {
+    display: none;
+    position: absolute;
+    top: calc(100% + 6px);
+    left: 0;
+    width: 100%;
+    padding: 6px;
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.55);
+    z-index: 1000;
+    box-sizing: border-box;
+}
+
+.custom-select.open .custom-select-menu {
+    display: block;
+}
+
+.custom-select-menu .status-option {
+    display: block;
+    width: 100%;
+    padding: 10px 12px;
+    margin: 0;
+    border: none;
+    border-radius: 8px;
+    background: transparent;
+    color: var(--text-main);
+    font-size: 14px;
+    text-align: left;
+    cursor: pointer;
+    box-sizing: border-box;
+    transition: background 0.15s ease, color 0.15s ease;
+}
+
+.custom-select-menu .status-option:hover {
+    background: var(--border-color);
+    color: var(--text-sub);
+}
+
+.modal-window .form-group {
+    margin-bottom: 16px;
+}
+
+.modal-window .form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--text-sub);
+    letter-spacing: 0.3px;
+    text-transform: uppercase;
+}
+
+/* строка: приоритет + категория в один ряд */
+.modal-window .form-row {
+    display: flex;
+    gap: 12px;
+}
+
+.modal-window .form-row .form-group {
+    flex: 1;
+    min-width: 0;
+}
+
+/* группа с иконкой */
+.modal-window .input-group {
+    position: relative;
+    display: flex;
+    align-items: center;
+    width: 100%;
+}
+
+.modal-window .input-group .input-icon {
+    position: absolute;
+    left: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #6b7280;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    pointer-events: none;
+    z-index: 2;
+}
+
+.modal-window .input-group .input-icon svg {
+    width: 18px;
+    height: 18px;
+}
+
+/* сами инпуты - отступ слева под иконку */
+.modal-window .input-group input {
+    width: 100%;
+    height: 48px;
+    padding: 0 14px 0 44px !important;
+    background: var(--bg-input) !important;;
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+    border-radius: 10px !important;
+    color: var(--text-main) !important;
+    font-size: 14px !important;
+    outline: none;
+    box-sizing: border-box;
+}
+
+.modal-window .input-group input::placeholder {
+    color: var(--text-sub);
+}
+
+.modal-window .input-group input:focus {
+    border-color: #f59e0b !important;
+    box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.15) !important;
+}
+
+/* селекты в модалке - тот же размер/фон */
+.modal-window .custom-select-trigger {
+    height: 48px !important;
+    padding: 0 14px 0 44px !important;
+    background: #18181c !important;
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+    border-radius: 10px !important;
+}
+
+.modal-window .custom-select-trigger .trigger-icon {
+    position: absolute;
+    left: 14px;
+    width: 18px !important;
+    height: 18px !important;
+    color: var(--text-sub);
+}
+
+.modal-window .custom-select-trigger .custom-select-value {
+    color: var(--text-sub);
+}
+
+.modal-window .custom-select-trigger .custom-select-value.is-selected {
+    color: var(--text-main);
+}
+
+.modal-window .custom-select-trigger .trigger-arrow {
+    width: 18px !important;
+    height: 18px !important;
+    margin-left: auto;
+}
+
+.modal-window .custom-select.open .custom-select-trigger {
+    border-color: #f59e0b !important;
+    box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.15) !important;
+}

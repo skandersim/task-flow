@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block extra_css %}
+    {% block app_css %} {% endblock %}
+{% endblock %}
+
+{% block main_content %}
+    <div class="sidebar">
+        <a href="/main" class="sidebar-item {% if request.path == '/main' %}active{% endif %}">
+            <i data-lucide="home"></i> Главная
+        </a>
+        <a href="/tasks" class="sidebar-item {% if request.path.startswith('/tasks') %}active{% endif %}">
+            <i data-lucide="check-square"></i> Мои задачи
+        </a>
+        <a href="/calendar" class="sidebar-item {% if request.path == '/calendar' %}active{% endif %}">
+            <i data-lucide="calendar"></i> Календарь
+        </a>
+        <a href="/stats" class="sidebar-item {% if request.path == '/stats' %}active{% endif %}">
+            <i data-lucide="bar-chart-2"></i> Статистика
+        </a>
+        <a href="/settings" class="sidebar-item {% if request.path == '/settings' %}active{% endif %}">
+            <i data-lucide="settings"></i> Настройки
+        </a>
+        <a href="/profile" class="sidebar-item {% if request.path == '/profile' %}active{% endif %}">
+            <i data-lucide="user"></i> Профиль
+        </a>
+    </div>
+
+    <div class="app-content-wrapper">
+        {% block app_content %}{% endblock %}
+    </div>
+{% endblock %}
+
+{% block extra_js %}
+    {% block app_js %}{% endblock %}
+{% endblock %}

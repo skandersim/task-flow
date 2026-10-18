@@ -1,0 +1,278 @@
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(0, 0, 0, 0.7);
+    z-index: 1000;
+}
+
+.modal-overlay.active {
+    display: flex;
+}
+
+.modal-window {
+    position: relative;
+    width: 500px;
+    background-color: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: 20px;
+    padding: 32px;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
+}
+
+.modal-header {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 28px;
+}
+
+.modal-header h3 {
+    font-size: 26px;
+    font-weight: 700;
+    color: var(--text-main);
+}
+
+.close-btn {
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 32px;
+    height: 32px;
+    border: none;
+    border-radius: 8px;
+    background-color: transparent;
+    color: var(--text-sub);
+    font-size: 28px;
+    line-height: 1;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.close-btn:hover {
+    color: var(--text-main);
+    background-color: rgba(255, 255, 255, 0.08);
+}
+
+.edit-btn {
+    width: 32px;
+    height: 32px;
+    border: none;
+    border-radius: 8px;
+    background-color: transparent;
+    color: var(--text-sub);
+    cursor: pointer;
+    display: flex;
+    align-items: center; 
+    justify-content: center;
+    transition: all 0.2s ease;
+}
+
+.edit-btn:hover {
+    color: var(--text-main);
+    background-color: rgba(255, 255, 255, 0.08);
+}
+
+.modal-window form {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.modal-window input,
+.modal-window select {
+    width: 100%;
+    height: 48px;
+    background-color: var(--bg-input);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    padding: 0 16px;
+    color: var(--text-main);
+    font-size: 15px;
+    outline: none;
+    transition: all 0.2s ease;
+}
+
+.modal-window input::placeholder {
+    color: var(--text-sub);
+}
+
+.modal-window input:focus,
+.modal-window select:focus {
+    border-color: var(--accent-color);
+    box-shadow: 0 0 0 3px var(--accent-alpha);
+}
+
+.modal-window select {
+    cursor: pointer;
+}
+
+.modal-window .btn-primary {
+    width: 100%;
+    height: 48px;
+    margin-top: 6px;
+    background-color: var(--accent-color);
+    color: #ffffff;
+    border: none;
+    border-radius: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.modal-window .btn-primary:hover {
+    background-color: var(--accent-hover);
+}
+
+.editing {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-left: auto;
+}
+
+.edit-btn,
+.confirm-delete-btn {
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    border: none;
+    outline: none;
+    background: transparent;
+    color: var(--text-sub);
+    cursor: pointer;
+    border-radius: 6px;
+    transition: all 0.2s ease;
+}
+
+.edit-btn svg,
+.confirm-delete-btn svg {
+    width: 18px;
+    height: 18px;
+}
+
+.task-card {
+    display: flex;
+    align-items: center;
+}
+
+.task-card > p {
+    margin-left: 20px;
+}
+
+.delete-buttons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    margin-top: 25px;
+}
+
+.cancel-delete,
+.confirm-delete-btn {
+    width: 89px;
+    height: 42px;
+    padding: 0;
+    border: none;
+    border-radius: 9px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.cancel-delete {
+    border: none;
+    background-color: var(--bg-input);
+    color: var(--text-sub);
+}
+
+.cancel-delete:hover {
+    background-color: rgba(255, 255, 255, 0.08);
+    color: var(--text-main);
+}
+
+.confirm-delete-btn {
+    border: none;
+    background-color: var(--accent-color);
+    color: #ffffff;
+}
+
+.confirm-delete-btn:hover {
+    background-color: var(--accent-hover);
+    box-shadow: 0 0 15px var(--accent-glow);
+}
+
+.delete-btn {
+    width: 32px;
+    height: 32px;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    outline: none;
+    border-radius: 6px;
+    background: transparent;
+    color: var(--text-sub);
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.delete-btn svg {
+    width: 18px;
+    height: 18px;
+}
+
+.delete-btn:hover {
+    color: #ef4444;
+    background-color: rgba(239, 68, 68, 0.1);
+}
+
+.modal-window.delete-modal {
+    max-width: 440px;
+}
+
+.modal-window.delete-modal .modal-header {
+    margin-bottom: 18px;
+}
+
+.modal-window.delete-modal .modal-header h3 {
+    margin: 0;
+}
+
+.modal-window.delete-modal .delete-text {
+    margin: 0;
+    color: var(--text-sub);
+    font-size: 15px;
+    line-height: 1.5;
+    text-align: center;
+}
+
+.modal-window.delete-modal .delete-buttons {
+    justify-content: center;
+    gap: 12px;
+    margin-top: 24px;
+}
+
+.modal-window.delete-modal .cancel-delete,
+.modal-window.delete-modal .confirm-delete-btn {
+    width: 130px;
+    height: 48px;
+    border-radius: 12px;
+}
+
+.modal-window.delete-modal .delete-form {
+    width: auto;
+    margin: 0;
+}

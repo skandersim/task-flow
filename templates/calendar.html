@@ -1,0 +1,106 @@
+{% extends 'base_app.html' %}
+
+{% block title %}Календарь | TaskFlow{% endblock %}
+
+{% block app_css %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='calendar.css') }}">
+{% endblock %}
+
+{% block app_content %}
+    <div class="calendar-page">
+        <!-- шапка страницы -->
+        <div class="calendar-header">
+            <div class="header-top">
+                <i data-lucide="calendar"></i>
+                <h1>Календарь</h1>
+            </div>
+            <p>Планируйте свои дела и не упускайте важное</p>
+        </div>
+
+        <!-- основной блок -->
+        <div class="calendar-body">
+            
+            <!-- большой календарь -->
+            <div class="calendar-main">
+                <div class="calendar-board">
+                    <!-- навигация большого календаря -->
+                    <div class="calendar-board-header">
+                        <div class="calendar-board-header-nav">
+                            <button type="button" class="header-nav-btn prev-btn">
+                                <i data-lucide="chevron-left"></i>
+                            </button>
+                            <h3>...</h3>
+                            <button type="button" class="header-nav-btn next-btn">
+                                <i data-lucide="chevron-right"></i>
+                            </button>
+                        </div>
+                        <div class="calendar-board-header-views">
+                            <button type="button" class="active">
+                                <i data-lucide="calendar"></i>
+                                <h4>Месяц</h4>
+                            </button>
+                            <button type="button">
+                                <i data-lucide="calendar-days"></i>
+                                <h4>Неделя</h4>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- дни недели большой доски -->
+                    <div class="calendar-weekdays">
+                        <div class="weekday">Пн</div>
+                        <div class="weekday">Вт</div>
+                        <div class="weekday">Ср</div>
+                        <div class="weekday">Чт</div>
+                        <div class="weekday">Пт</div>
+                        <div class="weekday">Сб</div>
+                        <div class="weekday">Вс</div>
+                    </div>
+
+                    <!-- сетка дат -->
+                    <div class="calendar-grid" id="calendarGrid"></div>
+                </div>
+            </div>
+
+            <!-- правая панель -->
+            <div class="calendar-sidebar">
+                
+                <div class="sidebar-widget quote-widget">
+                    <i data-lucide="mountain-snow" class="quote-icon"></i>
+                    <h4>Маленькие шаги приводят к большим результатам</h4>
+                    <p>Продолжай в том же духе!</p>
+                    <div class="animated-line"></div>
+                </div>
+
+                <!-- ближайшие события -->
+                <div class="upcoming-events">
+                    <div class="upcoming-events-header">
+                        <div class="upcoming-title">
+                            <i data-lucide="calendar"></i>
+                            <h3>Ближайшие события</h3>
+                        </div>
+                        <a href="/tasks" class="events-all-link">
+                            Все <i data-lucide="chevron-right"></i>
+                        </a>
+                    </div>
+                    <div class="upcoming-list" id="upcomingList"></div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block app_js %}
+    <!-- передаем json из python -->
+    <script id="tasksData" type="application/json">
+        {{ tasks | tojson | safe }}
+    </script>
+
+    <!-- считываем данные в джава скрипте -->
+    <script>
+        const userTasks = JSON.parse(document.getElementById('tasksData').textContent || '[]');
+    </script>
+
+    <script src="{{ url_for('static', filename='javaScript/calendar.js') }}"></script>
+{% endblock %}
