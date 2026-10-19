@@ -6,7 +6,7 @@ def init_db():
 
     cursor.execute('''
         CREATE TABLE IF NOT EXISTS users (
-            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            id INTEGER PRIMARY KEY,
             login TEXT,
             email TEXT,
             password TEXT,
@@ -18,7 +18,7 @@ def init_db():
 
     cursor.execute('''
         CREATE TABLE IF NOT EXISTS profiles (
-            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            id INTEGER PRIMARY KEY,
             user_id INTEGER,
             avatar VARCHAR(255),
             name TEXT,
@@ -31,7 +31,7 @@ def init_db():
 
     cursor.execute('''
         CREATE TABLE IF NOT EXISTS tasks (
-            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            id INTEGER PRIMARY KEY,
             user_id INTEGER,
             title TEXT,
             description TEXT,
