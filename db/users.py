@@ -9,12 +9,12 @@ def add_user(login, email, password):
     hashed_password = generate_password_hash(password)
 
     cursor.execute(
-        'INSERT INTO users (login, email, password, registered_at) VALUES (?, ?, ?, ?)',
+        'INSERT INTO users (login, email, password, registered_at) VALUES (?, ?, ?, ?) RETURNING id',
         (login, email, hashed_password, registered_at)
     )
+    user_id = cursor.fetchone()[0]
 
     conn.commit()
-    user_id = cursor.lastrowid
     conn.close()
     return user_id
 
