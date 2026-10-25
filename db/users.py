@@ -1,4 +1,4 @@
-from db.connection import get_connection
+from db.connection import get_connection, InterpolatingDictCursor
 from datetime import date
 from werkzeug.security import generate_password_hash
 
@@ -9,7 +9,7 @@ def add_user(login, email, password):
     hashed_password = generate_password_hash(password)
 
     cursor.execute(
-        'INSERT INTO users (login, email, password, registered_at) VALUES (?, ?, ?, ?) RETURNING id',
+        'INSERT INTO users (login, email, password, registered_at) VALUES (%s, %s, %s, %s) RETURNING id',
         (login, email, hashed_password, registered_at)
     )
     user_id = cursor.fetchone()[0]
@@ -24,23 +24,22 @@ def add_profile(user_id, avatar, name, age, hobbies, daily_goal, goals):
 
     cursor.execute('''
         INSERT INTO profiles (user_id, avatar, name, age, hobbies, daily_goal, goals)
-        VALUES (?, ?, ?, ?, ?, ?, ?)
+        VALUES (%s, %s, %s, %s, %s, %s, %s)
     ''', (user_id, avatar, name, age, hobbies, daily_goal, goals))
 
     conn.commit()
     conn.close()
 
 def get_user_data(user_id):
-    conn = get_connection(row_factory=True)
-    cursor = conn.cursor()
+    conn = get_connection()
+    cursor = conn.cursor(cursor_factory=InterpolatingDictCursor)
 
     cursor.execute("""
         SELECT users.*, profiles.* 
         FROM users 
-        LEFT JOIN profiles ON users.id = user_id 
-        WHERE users.id = ?
+        LEFT JOIN profiles ON users.id = profiles.user_id 
+        WHERE users.id = %s
     """, (user_id,))
-
     user = cursor.fetchone()
     conn.close()
     return user
@@ -51,7 +50,7 @@ def check_login(login_input):
 
     cursor.execute("""
         SELECT id, login, email, password FROM users 
-        WHERE login = ? OR email = ?
+        WHERE login = %s OR email = %s
     """, (login_input, login_input))
     
     user_data = cursor.fetchone()
@@ -74,10 +73,10 @@ def update_user_field(user_id, field, value):
 
     try:
         if field in users_fields:
-            cursor.execute(f'UPDATE users SET {field} = ? WHERE id = ?', (value, user_id))
+            cursor.execute(f'UPDATE users SET {field} = %s WHERE id = %s', (value, user_id))
         elif field in profiles_fields:
             column = profiles_fields[field]
-            cursor.execute(f'UPDATE profiles SET {column} = ? WHERE user_id = ?', (value, user_id))
+            cursor.execute(f'UPDATE profiles SET {column} = %s WHERE user_id = %s', (value, user_id))
         else:
             conn.close()
             return False
@@ -95,7 +94,7 @@ def update_level(user_id):
     cursor = conn.cursor()
 
     cursor.execute(
-        "SELECT completed_tasks_total FROM users WHERE id = ?", (user_id,)
+        "SELECT completed_tasks_total FROM users WHERE id = %s", (user_id,)
     )
     row = cursor.fetchone()
 
@@ -119,7 +118,7 @@ def update_level(user_id):
         level = 'Новичок'
 
     cursor.execute(
-        "UPDATE users SET level = ? WHERE id = ?", (level, user_id)
+        "UPDATE users SET level = %s WHERE id = %s", (level, user_id)
     )
 
     conn.commit()
@@ -131,15 +130,15 @@ def delete_user_data(user_id):
     try:
         cursor = conn.cursor()
         cursor.execute(
-            "SELECT 1 FROM users WHERE id = ?", (user_id, )
+            "SELECT 1 FROM users WHERE id = %s", (user_id, )
         )
 
         if cursor.fetchone() is None:
             return False
 
-        cursor.execute("DELETE FROM tasks WHERE user_id = ?", (user_id, ))
-        cursor.execute("DELETE FROM profiles WHERE user_id = ?", (user_id, ))
-        cursor.execute("DELETE FROM users WHERE id = ?", (user_id, ))
+        cursor.execute("DELETE FROM tasks WHERE user_id = %s", (user_id, ))
+        cursor.execute("DELETE FROM profiles WHERE user_id = %s", (user_id, ))
+        cursor.execute("DELETE FROM users WHERE id = %s", (user_id, ))
 
         deleted = cursor.rowcount == 1
         conn.commit()

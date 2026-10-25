@@ -1,49 +1,51 @@
 from db.connection import get_connection
 
+
 def init_db():
     conn = get_connection()
     cursor = conn.cursor()
 
-    cursor.execute('''
+    cursor.execute("""
         CREATE TABLE IF NOT EXISTS users (
             id SERIAL PRIMARY KEY,
-            login TEXT,
-            email TEXT,
-            password TEXT,
-            registered_at TEXT NOT NULL,
-            level TEXT NOT NULL DEFAULT 'Новичок',
-            completed_tasks_total INTEGER NOT NULL DEFAULT 0
-        )
-    ''')
+            login VARCHAR(50) UNIQUE NOT NULL,
+            email VARCHAR(100) UNIQUE NOT NULL,
+            password VARCHAR(255) NOT NULL,
+            registered_at DATE NOT NULL DEFAULT CURRENT_DATE,
+            completed_tasks_total INTEGER DEFAULT 0,
+            level VARCHAR(20) DEFAULT 'Новичок'
+        )       
+    """)
 
-    cursor.execute('''
+    cursor.execute("""
         CREATE TABLE IF NOT EXISTS profiles (
-            id SERIAL PRIMARY KEY,
-            user_id INTEGER,
+            user_id INTEGER PRIMARY KEY REFERENCES users(id) ON DELETE CASCADE,
             avatar VARCHAR(255),
-            name TEXT,
-            age TEXT,
+            name VARCHAR(100),
+            age VARCHAR(10),
             hobbies TEXT,
-            daily_goal TEXT,
+            daily_goal VARCHAR(50),
             goals TEXT
         )
-    ''')
+    """)
 
-    cursor.execute('''
+    cursor.execute("""
         CREATE TABLE IF NOT EXISTS tasks (
             id SERIAL PRIMARY KEY,
-            user_id INTEGER,
-            title TEXT,
+            user_id INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+            title VARCHAR(200) NOT NULL,
             description TEXT,
-            due_date TEXT,
-            due_time TEXT,
-            priority TEXT,
-            hobbies TEXT,
-            status TEXT DEFAULT 'not-started',
+            due_date DATE,
+            due_time TIME,
+            priority VARCHAR(20),
+            hobbies VARCHAR(100),
+            status VARCHAR(20) NOT NULL DEFAULT 'not-started',
             is_deleted INTEGER DEFAULT 0,
-            level_rewarded INTEGER NOT NULL DEFAULT 0
+            level_rewarded INTEGER DEFAULT 0,
+            created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+            completed_at TIMESTAMP
         )
-    ''')
+    """)
 
     conn.commit()
     conn.close()
