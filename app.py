@@ -1,7 +1,9 @@
+import os
+from dotenv import load_dotenv
+load_dotenv()
 from flask import Flask
 from db import init_db
 from utils import get_current_user, format_date_dmy
-import os
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -32,6 +34,8 @@ app.register_blueprint(settings_bp)
 @app.context_processor
 def inject_user():
     return dict(user=get_current_user())
+
+init_db()
 
 if __name__ == '__main__':
     init_db()

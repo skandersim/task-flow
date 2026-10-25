@@ -7,6 +7,7 @@ from flask import (
 from werkzeug.utils import secure_filename
 from db import check_login, add_user, add_profile, delete_user_data
 from werkzeug.security import check_password_hash
+from db.connection import get_connection
 
 auth_bp = Blueprint('auth', __name__)
 
@@ -41,8 +42,21 @@ def register():
                 email=email
             )
 
-        user_id = add_user(login_db, email, password)
-        session["user_id"] = user_id
+        if check_login(email):
+            return render_template(
+                "registration.html",
+                error="Пользователь с такой почтой уже зарегистрирован",
+                login=login,
+                email=email
+            )
+
+        add_user(login_db, email, password)
+        conn = get_connection()
+        cursor = conn.cursor()
+        cursor.execute("SELECT id FROM users ORDER BY id DESC LIMIT 1")
+        new_user_id = cursor.fetchone()[0]
+        conn.close()
+        session["user_id"] = new_user_id
 
         return redirect(url_for("auth.profile_setup"))
 
@@ -114,4 +128,3 @@ def delete_account():
     session.clear()
 
     return redirect(url_for('auth.entrance'))
-        
