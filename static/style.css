@@ -482,7 +482,6 @@ body.light-theme::after {
 }
 
 .details {
-    width: 100%; /* задаем ширину */
     margin: 0 auto; /* зажимаем контейнер по центру страницы */
     max-width: 1600px; /* задаем максимальную ширину */
     padding: 48px 32px 60px; /* внутренние отступы */
@@ -1053,4 +1052,27 @@ textarea:-webkit-autofill {
 .modal-window .custom-select.open .custom-select-trigger {
     border-color: #f59e0b !important;
     box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.15) !important;
+}
+
+@media (max-width: 768px) {
+    html, body { overflow-x: hidden; }
+    .navbar { padding: 20px; }
+    .logo h2 { font-size: 20px; font-weight: 700; }
+    .logo svg { width: 30px; height: 30px; }
+    .btn { padding: 10px 12px; font-size: 15px; font-weight: 500; }
+    .hero { transform: none; padding: 20px; display: block; }
+    .hero-image { display: none; }
+    .badge { margin: 15px 0; font-size: 14px; font-weight: 400; white-space: nowrap; }
+    .hero-title { font-size: 38px; font-weight: 700; white-space: nowrap; }
+    .hero-description { max-width: none; }
+    .features-grid, .taskflow-about__grid { grid-template-columns: 1fr; gap: 24px; }
+    .hero-buttons { margin-bottom: 0; }
+    .features, .details, .taskflow-about { padding: 20px; margin: 20px; gap: 4px;}
+    .features h2, .details-title, .taskflow-about__title { font-size: 26px; margin-bottom: 20px;}
+    .feature-card svg { height: 32px; width: 32px; }
+    .feature-card h3, .feature-more h3, .taskflow-about__card h3 { font-size: 18px; font-weight: 700; margin-bottom: 6px; }
+    .feature-card p, .feature-more p, .taskflow-about__lead, .taskflow-about__card p, .taskflow-about__note p { font-size: 15px; }
+    .details-grid, .taskflow-about__note { grid-template-columns: 1fr; }
+    .taskflow-about__card, .taskflow-about__note { padding: 14px; }
+    .taskflow-about__version, .taskflow-about__number { font-weight: 400;}
 }
