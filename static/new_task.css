@@ -350,3 +350,24 @@ body .new_task_content .tasks-wrapper .tasks-container .task-card[hidden] {
     border-color: var(--accent-color) !important;
     box-shadow: 0 0 0 3px var(--accent-alpha) !important;
 }
+
+@media (max-width: 768px) {
+    .new_task_content { margin: 0 !important; padding: 10px 20px !important; width: 100vw !important; max-width: 100vw !important; box-sizing: border-box !important; }
+    .new_task_header h2 { font-size: 25px; font-weight: 700; }
+    .tasks-header-row, .sidebar { display: none !important; height: 0 !important; opacity: 0; }
+    .tasks-container { margin-top: 5px; }
+    .task-card {display: grid; grid-template-columns: 44px 1fr;}
+    .task-card .task-toggle {
+    grid-column: 1 !important;
+    grid-row: 1 / span 3 !important;
+    position: static !important;
+    width: 26px;
+    height: 26px;
+    margin: 2px 0 0 !important;
+    padding: 0 !important;
+}
+    .task-title-block, .hobbies, .priority-badge, .date, .condition {grid-column-start: 2;}
+    .priority-badge, .date {justify-self: end; margin: 0;}
+    .task-title-block, .priority-badge {grid-row-start: 1;}
+    .hobbies, .date {grid-row-start: 2;}
+}
