@@ -5,6 +5,7 @@ from flask import Flask
 from db import init_db
 from utils import get_current_user, format_date_dmy
 from dotenv import load_dotenv
+from datetime import date, time
 
 load_dotenv()
 
@@ -34,6 +35,22 @@ app.register_blueprint(settings_bp)
 @app.context_processor
 def inject_user():
     return dict(user=get_current_user())
+
+@app.template_filter('ru_date')
+def format_ru_date(value):
+    if not value:
+        return ''
+    if isinstance(value, date):
+        return value.strftime('%d.%m.%Y')
+    return value
+
+@app.template_filter('ru_time')
+def format_time(value):
+    if not value:
+        return
+    if isinstance(value, time):
+        return value.strftime('%H.%M')
+    return value
 
 init_db()
 
