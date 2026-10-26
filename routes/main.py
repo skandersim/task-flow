@@ -1,6 +1,6 @@
 from flask import Blueprint, render_template, session, redirect, url_for
 from db import get_user_tasks
-from datetime import datetime
+from datetime import date, datetime
 
 main_bp = Blueprint('main', __name__)
 
@@ -26,7 +26,10 @@ def main_page():
             continue
 
         try:
-            due_date = datetime.strptime(due_raw, '%d.%m.%Y').date()
+            if isinstance(due_raw, date):
+                due_date = due_raw
+            else:
+                due_date = datetime.strptime(due_raw, '%Y-%m-%d').date()
         except (TypeError, ValueError):
             continue
 
