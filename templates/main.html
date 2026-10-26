@@ -115,7 +115,7 @@
 
                                 <!-- дата -->
                                 <div class="task-col-date">
-                                    {{ task.due_date or '—' }}
+                                    {{ task.due_date | ru_date or '—' }}
                                 </div>
 
                             </div>
@@ -150,7 +150,7 @@
                                 <div class="today-event-info">
                                     <span class="today-event-title">{{ task.title }}</span>
                                     {% if task.due_time %}
-                                        <span class="today-event-time">{{ task.due_time }}</span>
+                                        <span class="today-event-time">{{ task.due_time | ru_time or '—' }}</span>
                                     {% endif %}
                                 </div>
                             </div>
