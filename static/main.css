@@ -268,7 +268,7 @@
 .task-col-date {
     text-align: right;
     padding-right: 8px; /* небольшой отступ от правого края рамки */
-    color: var(--text-main);
+    color: var(--text-sub);
 }
 
 /* пустые задачи */
@@ -469,7 +469,7 @@
 }
 
 @media (max-width: 768px) {
-    .sidebar { display: none !important; }
+    .sidebar, .tasks-header-row { display: none !important; }
     .main-content {
         margin: 0 !important;
         padding: 10px 20px !important;
@@ -485,4 +485,15 @@
     .dashboard-right { width: 100% !important; }
     .tasks-card, .calendar-card, .progress-card { padding: 24px; min-height: 0 !important; }
     .main-empty-tasks { flex: 0 !important; padding: 10px !important; gap: 10px; }
+    .tasks-card { padding: 18px !important; }
+    .main-tasks-grid { grid-template-columns: 40px 1fr !important; gap: 0; column-gap: 10px; }
+    .task-row { padding: 14px 0 !important; column-gap: 10px; }
+    .task-col-check { grid-row: span 2; margin-top: 2px; }
+    .task-col-title { grid-column: 2; grid-row: 1; font-size: 15px !important; margin: 0; }
+    .task-col-priority { grid-column: 3; grid-row: 1; text-align: right; margin-top: 0; justify-self: end; }
+    .task-col-category { grid-column: 2; grid-row: 2; font-size: 13px !important; color: var(--text-sub); margin-top: 6px; }   
+    .task-col-date { grid-column: 3; grid-row: 2; text-align: right; margin-top: 6px; font-size: 12px !important; justify-self: end; }
+    .priority-badge { font-size: 11px !important; padding: 5px 10px !important; }
+    .task-col-check, .task-col-title, .task-col-category, .task-col-priority, .task-col-date { min-width: 0; overflow: hidden; }
+
 }
