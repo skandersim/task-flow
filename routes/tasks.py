@@ -49,10 +49,12 @@ def task_edit(task_id):
         return redirect(url_for('auth.entrance'))
 
     title = request.form.get('title')
+    description = request.form.get('description')
     due_date = request.form.get('due_date')
+    due_time = request.form.get('due_time')
     priority = request.form.get('priority')
 
-    edit_task(task_id, user_id, title, due_date, priority)
+    edit_task(task_id, user_id, title, description, due_date, due_time, priority)
     return redirect(url_for('tasks.tasks_page'))
 
 #быстрая смена статуса, вызывается из JS при клике на галочку или статус
