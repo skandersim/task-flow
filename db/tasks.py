@@ -56,15 +56,26 @@ def delete_task(task_id, user_id):
     conn.close()
 
 
-def edit_task(task_id, user_id, title, due_date, priority):
+def edit_task(task_id, user_id, title, description, due_date, due_time, priority):
     conn = get_connection()
     cursor = conn.cursor()
 
+    if title == '':
+        title = None
+    if description == '':
+        description = None
+    if due_date == '':
+        due_date = None
+    if due_time == '':
+        due_time = None
+    if priority == '':
+        priority = None
+
     cursor.execute('''
         UPDATE tasks
-        SET title = %s, due_date = %s, priority = %s
+        SET title = %s, description = %s, due_date = %s, due_time = %s, priority = %s
         WHERE id = %s AND user_id = %s
-    ''', (title, due_date, priority, task_id, user_id))
+    ''', (title, description, due_date, due_time, priority, task_id, user_id))
 
     conn.commit()
     conn.close()
