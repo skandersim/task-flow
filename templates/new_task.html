@@ -127,9 +127,9 @@
 
                             <!-- срок -->
                             <div class="date">
-                                <p>{{ task.due_date or '—' }}</p>
+                                <p>{{ task.due_date | ru_date or '—' }}</p>
                                 {% if task.due_time %}
-                                    <p class="task-subtitle">{{ task.due_time }}</p>
+                                    <p class="task-subtitle">{{ task.due_time | ru_time }}</p>
                                 {% endif %}
                             </div>
 
@@ -299,10 +299,26 @@
                 </div>
 
                 <div class="form-group">
+                    <label>Комментарий</label>
+                    <div class="input-group">
+                        <span class="input-icon"><i data-lucide="notepad-text"></i></span>
+                        <input type="text" name="description" placeholder="Введите комментарий к задаче...">
+                    </div>
+                </div>
+
+                <div class="form-group">
                     <label>Срок выполнения</label>
                     <div class="input-group">
                         <span class="input-icon"><i data-lucide="calendar"></i></span>
                         <input type="text" name="due_date" placeholder="Например, 01.09.2026">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Время выполнения</label>
+                    <div class="input-group">
+                        <span class="input-icon"><i data-lucide="watch"></i></span>
+                        <input type="text" name="due_time" placeholder="Например, 18:00">
                     </div>
                 </div>
                 
