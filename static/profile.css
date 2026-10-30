@@ -464,3 +464,19 @@
 .mini-calendar-grid .day-number {
     font-size: 13px;
 }
+
+@media (max-width: 768px) {
+    .sidebar, .profile-sidebar { display: none !important; }
+    .profile-page {
+        margin: 0 !important;
+        padding: 10px 20px !important;
+        width: 100vw !important;
+        max-width: 100vw !important;
+        box-sizing: border-box !important;
+    }
+    .profile-layout {margin: 0 !important; width: 100% !important; margin-left: 0 !important; grid-template-columns: 1fr;}
+    .profile-hero {grid-template-columns: 80px 1fr;}
+    .profile-avatar {width: 80px; height: 80px;}
+    .profile-level {grid-column-start: 1; grid-column-end: span 4;}
+    
+}

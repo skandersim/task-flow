@@ -60,6 +60,8 @@ body.light-theme::after {
     opacity: 0;
 }
 
+.navigation {display: none;}
+
 .navbar {
     position: sticky; 
     top: 0; /* приклеивает шапку к верху при достижении  0 пикселей */
@@ -768,12 +770,12 @@ textarea:-webkit-autofill {
 
 .confirm-logout-btn {
     border: none;
-    background: #dc2626;
+    background: var(--accent-color);
     color: var(--text-main);
 }
 
 .confirm-logout-btn:hover {
-    background: #b91c1c;
+    background: var(--accent-hover);
     box-shadow: 0 0 14px rgba(220, 38, 38, 0.35);
 }
 
@@ -1075,4 +1077,29 @@ textarea:-webkit-autofill {
     .details-grid, .taskflow-about__note { grid-template-columns: 1fr; }
     .taskflow-about__card, .taskflow-about__note { padding: 14px; }
     .taskflow-about__version, .taskflow-about__number { font-weight: 400;}
+    .navigation {display: flex; align-items: center;}
+    .menu {
+        display: flex;
+        flex-direction: column;
+        position: absolute;
+        top: 72px;
+        left: 0;
+        width: 240px;
+        background: var(--bg-card);
+        border: 1px solid var(--border-color);
+        border-radius: 0 16px 16px 16px;
+        padding: 10px;
+        box-shadow: 0 12px 24px rgba(0,0,0,0.4);
+        opacity: 0;
+        visibility: hidden;
+        transform: translateY(-16px);
+        transition: all 0.2s ease;
+    }
+    .menu.active {
+        opacity: 1;
+        visibility: visible;
+        transform: translateY(0);
+    }
+.nav-left {display: flex; gap: 15px;}
+.navigation svg {color: var(--text-sub);}
 }

@@ -1003,3 +1003,34 @@
         transform: translateY(0) scale(1);
     }
 }
+
+@media (max-width: 768px) {
+    .sidebar, .settings-sidebar { display: none !important; }
+    .settings-page {
+        margin: 0 !important;
+        padding: 10px 20px !important;
+        width: 100vw !important;
+        max-width: 100vw !important;
+        box-sizing: border-box !important;
+    }
+    .settings-header h1 {font-size: 24px;}
+    .settings-header p {font-size: 14px; margin-top: 0;}
+    .settings-header svg {width: 28px; height: 28px;}
+    .settings-nav {gap: 30px; margin: 0 10px;}
+    .settings-body {margin-top: 20px;}
+    .tab-btn {font-size: 14px;}
+    .settings-content {height: 100%;}
+    .avatar-edit-row {margin: 20px 10px;}
+    .avatar-circle {width: 70px !important; height: 70px !important;}
+    .settings-grid-form, .email-fields-row, .security-passwords-grid, .appearance-grid {grid-template-columns: 1fr; margin: 10px;}
+    .form-group {gap: 0 !important;}
+    .danger-zone {margin: 20px 10px 0;}
+    .card-header-text {margin: 20px 10px !important;}
+    .card-header-text h3 {font-size: 20px;}
+    .card-header-text p {font-size: 14px;}
+    .security-actions {margin: 20px 10px;}
+    .settings-main {padding: 0 !important;}
+    .appearance-grid {margin: 0; gap: 0;}
+    .appearance-column {gap: 0;}
+    .theme-cards-wrapper, .color-picker-row, .lang-cards-wrapper {margin: 10px;}
+}

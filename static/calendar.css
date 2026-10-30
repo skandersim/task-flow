@@ -43,9 +43,9 @@
 
 /* большой календарь */
 .calendar-main {
-    flex: 1;
+    flex: 1 1 auto;
     min-width: 0;
-    min-height: 720px;
+    min-height: auto;
     background-color: var(--bg-card);
     border: 1px solid var(--border-color);
     border-radius: 18px;
@@ -59,7 +59,8 @@
     display: flex;
     flex-direction: column;
     height: 100%;
-    min-height: 720px;
+    min-height: 0 !important;
+    flex: 1 0 auto !important;
 }
 
 .calendar-board-header {
@@ -158,18 +159,17 @@
 
 /* сетка дат большой доски */
 .calendar-grid {
-    flex: 1;
     display: grid;
     grid-template-columns: repeat(7, 1fr);
-    grid-template-rows: repeat(6, 1fr);
-    min-height: 560px;
+    grid-template-rows: repeat(6, auto);
+    min-height: 0 !important;
 }
 
 .calendar-grid .day-cell {
     border-right: 1px solid var(--border-color);
     border-bottom: 1px solid var(--border-color);
     padding: 8px;
-    min-height: 90px;
+    height: 90px;
     box-sizing: border-box;
 }
 
@@ -184,6 +184,7 @@
     display: flex;
     flex-direction: column;
     gap: 20px;
+    align-self: stretch !important;
 }
 
 .mini-calendar,
@@ -283,7 +284,7 @@
 
 /* ближайщие событие */
 .upcoming-events {
-    height: 352px;
+    flex: 1;
     display: flex;
     flex-direction: column;
 }
@@ -543,8 +544,8 @@
 }
 
 .quote-widget {
+    flex: 1;
     text-align: center;
-    height: 350px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -600,4 +601,31 @@
 @keyframes loadingLine {
     0% { left: -50%; }
     100% { left: 100%; }
+}
+
+@media (max-width: 768px) {
+    .sidebar, .sidebar-widget, .event-title, .event-time { display: none !important; }
+    .calendar-page {
+        margin: 0 !important;
+        padding: 10px 20px !important;
+        width: 100vw !important;
+        max-width: 100vw !important;
+        box-sizing: border-box !important;
+    }
+    .calendar-body {flex-direction: column;}
+    .calendar-header h1 {font-size: 24px;}
+    .calendar-header p {font-size: 14px; margin-top: 0;}
+    .calendar-board-header {padding:12px 12px; flex-wrap: wrap !important;}
+    .calendar-board-header-nav {gap: 0px; flex: 1 0 100% !important; margin-bottom: 10px; display: flex; align-items: center; justify-content: space-between;}
+    .calendar-board-header-nav h3 {font-size: 16px; font-weight: 600; min-width: 120px;}
+    .calendar-board-header-views button {padding: 0 10px; height: 34px; width: 150px;}
+    .calendar-header svg {width: 28px; height: 28px;}
+    .header-nav-btn {width: 75px; height: 34px;}
+    .calendar-board-header-views {display: flex; justify-content: space-between; flex: 1;}
+    .calendar-body {margin-top: 20px;}
+    .event-chip {background-color: transparent !important; border: none !important;}
+    .day-cell {height: 60px !important;}
+    .upcoming-events {height: 100%;}
+    .calendar-sidebar {width: 100%;}
+    .calendar-grid.is-week .day-cell {min-height: 60px !important;}
 }
