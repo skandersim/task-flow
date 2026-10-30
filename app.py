@@ -4,7 +4,6 @@ load_dotenv()
 from flask import Flask
 from db import init_db
 from utils import get_current_user, format_date_dmy
-from dotenv import load_dotenv
 from datetime import date, time
 
 load_dotenv()
@@ -51,8 +50,6 @@ def format_time(value):
     if isinstance(value, time):
         return value.strftime('%H.%M')
     return value
-
-init_db()
 
 if __name__ == '__main__':
     init_db()
