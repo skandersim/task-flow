@@ -838,7 +838,6 @@ textarea:-webkit-autofill {
     resize: none;
 }
 
-/* Фокус (золотая рамка) */
 .input-group input:focus,
 .input-group textarea:focus,
 .custom-select.open .custom-select-trigger {
@@ -1024,8 +1023,8 @@ textarea:-webkit-autofill {
 .modal-window .custom-select-trigger {
     height: 48px !important;
     padding: 0 14px 0 44px !important;
-    background: #18181c !important;
-    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+    background: var(--bg-input) !important;
+    border: 1px solid var(--border-color) !important;
     border-radius: 10px !important;
 }
 
