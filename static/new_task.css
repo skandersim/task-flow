@@ -412,4 +412,15 @@ body .new_task_content .tasks-wrapper .tasks-container .task-card[hidden] {
         text-align: left !important;
     }
     .modal-content {max-height: 90vh !important; overflow-y: auto !important; -webkit-overflow-scrolling: touch;}
+    body .modal-overlay {
+        overflow-y: auto !important;
+        -webkit-overflow-scrolling: touch !important;
+        padding: 20px 10px 80px !important;
+        align-items: flex-start !important;
+    }
+    body .modal-content {
+        max-height: none !important;
+        margin: 0 auto !important;
+        overflow: visible !important;
+    }
 }

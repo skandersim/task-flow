@@ -1039,4 +1039,19 @@
     .settings-tab, .tab-btn {display: flex !important; flex-direction: column !important; align-items: center !important; justify-content: center !important; width: 100% !important; padding: 10px 0 !important; gap: 6px;}
     .settings-tab svg, .tab-btn svg {width: 22px !important; height: 22px !important;}
     .settings-tab span, .tab-btn span {font-size: 13px; text-align: center;}
+    body .settings-page .settings-nav {
+    grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+    width: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    overflow: hidden;
+}
+body .settings-page .settings-tab {
+    min-width: 0 !important;
+    padding: 12px 0 !important;
+    margin: 0 !important;
+}
+body .settings-page .settings-tab span {
+    font-size: 12px !important;
+}
 }
