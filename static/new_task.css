@@ -411,4 +411,5 @@ body .new_task_content .tasks-wrapper .tasks-container .task-card[hidden] {
         padding: 10px 12px !important;
         text-align: left !important;
     }
+    .modal-content {max-height: 90vh !important; overflow-y: auto !important; -webkit-overflow-scrolling: touch;}
 }
