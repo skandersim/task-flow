@@ -64,6 +64,20 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     }
+
+    const navigation = document.querySelector('.navigation');
+    const menu = navigation.querySelector('.menu');
+    navigation.addEventListener('click', () => {
+        menu.classList.toggle('active')
+    })
+
+    document.addEventListener('click', (event) => {
+        if (navigation.contains(event.target)) {
+            return
+        }
+        menu.classList.remove('active');
+    })
+
 });
 
 function initCustomSelects(root = document) {
