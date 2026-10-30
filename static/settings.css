@@ -6,6 +6,7 @@
     box-sizing: border-box;
 }
 
+.tab-short { display: none; }
 .header-top {
     display: flex;
     align-items: center;
@@ -1016,7 +1017,7 @@
     .settings-header h1 {font-size: 24px;}
     .settings-header p {font-size: 14px; margin-top: 0;}
     .settings-header svg {width: 28px; height: 28px;}
-    .settings-nav {gap: 30px; margin: 0 10px;}
+    .settings-nav {display: grid; grid-template-columns: 1fr 1fr 1fr;}
     .settings-body {margin-top: 20px;}
     .tab-btn {font-size: 14px;}
     .settings-content {height: 100%;}
@@ -1033,4 +1034,9 @@
     .appearance-grid {margin: 0; gap: 0;}
     .appearance-column {gap: 0;}
     .theme-cards-wrapper, .color-picker-row, .lang-cards-wrapper {margin: 10px;}
+    .tab-full { display: none; }
+    .tab-short { display: block; }
+    .settings-tab, .tab-btn {display: flex !important; flex-direction: column !important; align-items: center !important; justify-content: center !important; width: 100% !important; padding: 10px 0 !important; gap: 6px;}
+    .settings-tab svg, .tab-btn svg {width: 22px !important; height: 22px !important;}
+    .settings-tab span, .tab-btn span {font-size: 13px; text-align: center;}
 }
