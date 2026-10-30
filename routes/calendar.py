@@ -1,5 +1,6 @@
 from flask import Blueprint, render_template, redirect, url_for, session
 from db import get_user_tasks
+from datetime import date, time
 
 calendar_bp = Blueprint('calendar', __name__)
 
@@ -10,4 +11,11 @@ def calendare_page():
         return redirect(url_for('auth.entrance'))
 
     user_tasks = get_user_tasks(user_id)
+
+    for task in user_tasks:
+        if isinstance(task.get('due_date'), date):
+            task['due_date'] = task['due_date'].strftime('%d.%m.%Y')
+        if isinstance(task.get('due_time'), time):
+            task['due_time'] = task['due_time'].strftime('%H:%M')
+    
     return render_template('calendar.html', tasks=user_tasks)

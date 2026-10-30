@@ -1,6 +1,6 @@
 from flask import Blueprint, render_template, session, redirect, url_for
 from db import get_user_tasks_history, get_user_tasks
-from datetime import datetime
+from datetime import datetime, date
 
 stats_bp = Blueprint('stats', __name__)
 
@@ -34,7 +34,12 @@ def stats_page():
 
     for task in all_tasks:
         if task['due_date']:
-            task_date = datetime.strptime(task['due_date'], '%d.%m.%Y').date()
+            due_raw = task['due_date']
+            if isinstance(due_raw, date):
+                task_date = due_raw
+            else:
+                task_date = datetime.strptime(due_raw, '%d.%m.%Y').date()
+
             if task_date < today and task['is_deleted'] == 0 and task['status'] != 'done': 
                 overdue_tasks += 1
 
