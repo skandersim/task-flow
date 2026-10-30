@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="ru">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -16,34 +17,64 @@
 
     <script src="https://unpkg.com/lucide@latest"></script>
 </head>
+
 <body class="landing-page">
 
     <!-- шапка -->
     <header class="navbar">
-        <a href="{% if session.get('user_id') %}/main{% else %}/{% endif %}" class="logo">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <polyline points="9 11 12 14 22 4"></polyline>
-                <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path>
-            </svg>
-            <h2>Task<span class="logo-highlight">Flow</span></h2>
-        </a>
+        <div class="nav-left">
+            {% if session.get('user_id') %}
+            <div class="navigation">
+                <i data-lucide="menu"></i>
+                <div class="menu">
+                    <a href="/main" class="sidebar-item {% if request.path == '/main' %}active{% endif %}">
+                        <i data-lucide="home"></i> Главная
+                    </a>
+                    <a href="/tasks" class="sidebar-item {% if request.path.startswith('/tasks') %}active{% endif %}">
+                        <i data-lucide="check-square"></i> Мои задачи
+                    </a>
+                    <a href="/calendar" class="sidebar-item {% if request.path == '/calendar' %}active{% endif %}">
+                        <i data-lucide="calendar"></i> Календарь
+                    </a>
+                    <a href="/stats" class="sidebar-item {% if request.path == '/stats' %}active{% endif %}">
+                        <i data-lucide="bar-chart-2"></i> Статистика
+                    </a>
+                    <a href="/settings" class="sidebar-item {% if request.path == '/settings' %}active{% endif %}">
+                        <i data-lucide="settings"></i> Настройки
+                    </a>
+                    <a href="/profile" class="sidebar-item {% if request.path == '/profile' %}active{% endif %}">
+                        <i data-lucide="user"></i> Профиль
+                    </a>
+                </div>
+            </div>
+
+            <a href="{% if session.get('user_id') %}/main{% else %}/{% endif %}" class="logo">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                    stroke-linejoin="round">
+                    <polyline points="9 11 12 14 22 4"></polyline>
+                    <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path>
+                </svg>
+                <h2>Task<span class="logo-highlight">Flow</span></h2>
+            </a>
+            {% endif %}
+        </div>
 
         <div class="nav-buttons">
             <!-- блок с аватаром -->
             {% if session.get('user_id') %}
-                <a href="/profile" class="nav-avatar-link" title="Профиль">
-                    <div class="nav-avatar">
-                        {% if user and user.avatar %}
-                            <img src="{{ user.avatar }}" alt="Аватар" class="nav-avatar-img">
-                        {% else %}
-                            <i data-lucide="user"></i>
-                        {% endif %}
-                    </div>
-                </a>
-                <a href="/logout" class="btn btn-outline">Выход</a>   
+            <a href="/profile" class="nav-avatar-link" title="Профиль">
+                <div class="nav-avatar">
+                    {% if user and user.avatar %}
+                    <img src="{{ user.avatar }}" alt="Аватар" class="nav-avatar-img">
+                    {% else %}
+                    <i data-lucide="user"></i>
+                    {% endif %}
+                </div>
+            </a>
+            <a href="/logout" class="btn btn-outline">Выход</a>
             {% else %}
-                <a href="/register" class="btn btn-primary">Регистрация</a>
-                <a href="/entrance" class="btn btn-outline">Войти</a>
+            <a href="/register" class="btn btn-primary">Регистрация</a>
+            <a href="/entrance" class="btn btn-outline">Войти</a>
             {% endif %}
         </div>
     </header>
@@ -53,21 +84,21 @@
         {% block main_content %}{% endblock %}
 
         {% if user %}
-            <div class="modal-overlay" id="logoutModal">
-                <div class="modal-window logout-modal">
-                    <button type="button" class="close-btn logout-close" aria-label="Закрыть">&times;</button>
+        <div class="modal-overlay" id="logoutModal">
+            <div class="modal-window logout-modal">
+                <button type="button" class="close-btn logout-close" aria-label="Закрыть">&times;</button>
 
-                    <h3 class="logout-title">Выход</h3>
-                    <p class="logout-text">Вы точно хотите выйти из аккаунта?</p>
+                <h3 class="logout-title">Выход</h3>
+                <p class="logout-text">Вы точно хотите выйти из аккаунта?</p>
 
-                    <div class="logout-buttons">
-                        <button type="button" class="cancel-logout">Отмена</button>
-                        <form method="POST" action="/logout" id="logoutForm" class="logout-form">
-                            <button type="submit" class="confirm-logout-btn">Выйти</button>
-                        </form>
-                    </div>
+                <div class="logout-buttons">
+                    <button type="button" class="cancel-logout">Отмена</button>
+                    <form method="POST" action="/logout" id="logoutForm" class="logout-form">
+                        <button type="submit" class="confirm-logout-btn">Выйти</button>
+                    </form>
                 </div>
             </div>
+        </div>
         {% endif %}
     </main>
 
